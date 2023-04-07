@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 function App() {
   const [isLoggedIn, setLoggedIn] = useState(true);
-  const [user, setUser] = useState(null);
+  const [ ,setUser] = useState(null);
 
   const onSuccess = (response) => {
     setLoggedIn(true);

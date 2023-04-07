@@ -1,6 +1,4 @@
-import { useState } from "react";
-
-const RangeButtons: React.FC = (props) => {
+const RangeButtons: React.FC = () => {
   return (
     <div>
       <button className="p-2">
