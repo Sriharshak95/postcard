@@ -3,7 +3,8 @@ import React, { useState } from "react";
 const PostCardLine: React.FC = (props) => {
   const [value1, setValue1] = useState("");
   const [value2, setValue2] = useState("");
-  const [options, setOptions] = useState(["Should talk to", "Please meet", "Should interview" ]);
+  const [options, ] = useState(["Should talk to", "Please meet", "Should interview" ]);
+  const [selectedOption, setSelectedOption] = useState("Should talk to");
   return (
     <React.Fragment>
       <input
@@ -12,7 +13,7 @@ const PostCardLine: React.FC = (props) => {
         onChange={(e) => setValue1(e.target.value)}
         value={value1}
       />
-      <select name="cars" id="cars" className="text-[15px] bg-indian-post">
+      <select name="cars" id="cars" className="text-[15px] bg-indian-post" onChange={(e) => setSelectedOption(e.target.value)} value={selectedOption}>
         {options.map((data, index) => {
             return (<option key={index} value={data}>{data}</option>)
         })}

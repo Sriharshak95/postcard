@@ -8,9 +8,6 @@ function Main() {
       <PostCard>
         <PostForm />
       </PostCard>
-      <button className="bg-orange-400 mt-5 w-1/2 text-[18px] text-white py-2">
-        Say Thanks
-      </button>
     </>
   );
 }

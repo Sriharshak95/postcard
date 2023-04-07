@@ -4,7 +4,7 @@ import TwitterLogin from 'react-twitter-auth';
 import { useState } from 'react';
 
 function App() {
-  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [isLoggedIn, setLoggedIn] = useState(true);
   const [user, setUser] = useState(null);
 
   const onSuccess = (response) => {
