@@ -30,6 +30,11 @@
   background-color:#e8cc91;
 }
 
+.stamp-border {
+  padding: 2px;
+  border: 2px dashed #000000;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

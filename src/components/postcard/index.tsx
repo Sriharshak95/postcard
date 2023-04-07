@@ -1,11 +1,20 @@
-import React from "react";
-import PostImage from "../../assets/stamp.png";
+import React, { useEffect, useState } from "react";
+// import PostImage from "../../assets/stamp.png";
 const PostCard: React.FC<{ children: JSX.Element }> = (props) => {
+  const [userPicture, setUserPicture] = useState("");
+  useEffect(() => {
+    const userDetails = localStorage.getItem("userDetails");
+    if (userDetails) {
+      setUserPicture(JSON.parse(userDetails).picture);
+    }
+  }, []);
   return (
     <React.Fragment>
       <div className="max-w-1/2 bg-indian-post rounded-lg overflow-hidden border-2 border-yellow-800 h-96 flex flex-col">
         <div className="flex justify-end text-black font-bold px-4 py-2 mt-2">
-          <img src={PostImage} alt="Stamp" className="h-16 w-16 shadow" />
+          <div className="relative">
+            <img src={userPicture} alt="Stamp" className="h-16 w-16 shadow stamp-border" />
+          </div>
         </div>
         <div className="flex-1 flex flex-col justify-center items-center">
           <div className="px-6 py-4 text-center">{props.children}</div>
