@@ -1,6 +1,6 @@
 const SignInTwitter: React.FC<{onClick:() => void}> = ({onClick}) => {
     return (
-        <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md flex items-center" onClick={onClick}>
+        <button className="bg-blue-500 text-[20px] hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md flex items-center" onClick={onClick}>
           <svg
             className="w-6 h-6 mr-2"
             fill="none"

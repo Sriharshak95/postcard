@@ -1,29 +1,21 @@
-import React, { useEffect, useState } from "react";
-// import PostImage from "../../assets/stamp.png";
+import React, { useContext } from "react";
+import { UserAuthContext } from "../../store";
+import PostImage from "../../assets/stamp.png";
+import CardHeader from "./cardHeader";
 const PostCard: React.FC<{ children: JSX.Element }> = (props) => {
-  const [userPicture, setUserPicture] = useState("");
-  useEffect(() => {
-    const userDetails = localStorage.getItem("userDetails");
-    if (userDetails) {
-      setUserPicture(JSON.parse(userDetails).picture);
-    }
-  }, []);
+  const { userDetails } = useContext(UserAuthContext);
   return (
     <React.Fragment>
-      <div className="max-w-1/2 bg-indian-post rounded-lg overflow-hidden border-2 border-yellow-800 h-96 flex flex-col">
-        <div className="flex justify-end text-black font-bold px-4 py-2 mt-2">
-          <div className="relative">
-            <img src={userPicture} alt="Stamp" className="h-16 w-16 shadow stamp-border" />
-          </div>
-        </div>
+      <div className="min-w-[570px] bg-indian-post rounded-lg overflow-hidden border-2 border-yellow-800 h-96 flex flex-col">
+        <CardHeader userDetails={userDetails} />
         <div className="flex-1 flex flex-col justify-center items-center">
           <div className="px-6 py-4 text-center">{props.children}</div>
         </div>
-        <div className="mt-4">
+        {Object.keys(userDetails).length > 0 ? <div className="mt-4">
           <button className="bg-orange-400 mt-5 w-full text-[18px] text-white py-2">
             Submit
           </button>
-        </div>
+        </div> : null}
       </div>
     </React.Fragment>
   );
