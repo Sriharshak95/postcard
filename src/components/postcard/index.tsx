@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { UserAuthContext } from "../../store";
-import PostImage from "../../assets/stamp.png";
 import CardHeader from "./cardHeader";
 const PostCard: React.FC<{ children: JSX.Element }> = (props) => {
   const { userDetails } = useContext(UserAuthContext);
