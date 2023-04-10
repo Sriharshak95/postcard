@@ -1,4 +1,6 @@
 import React from 'react';
 
 const UserAuthContext = React.createContext(null);
-export { UserAuthContext };
+const SocialMediaContext = React.createContext(null);
+
+export { UserAuthContext, SocialMediaContext };
