@@ -6,13 +6,15 @@ import { PostCardDetailsContext } from "../../store";
 const ThanksHeader: React.FC = () => {
   const { cardDetails } = useContext(PostCardDetailsContext);
   const [showTooltip, setShowTooltip] = React.useState(false);
+
   const handleLogout = () => {
-    if(Object.keys(cardDetails).length > 0) {
-        setShowTooltip(!showTooltip)
+    if (Object.keys(cardDetails).length > 0) {
+      setShowTooltip(!showTooltip);
     } else {
-        return null;
+      return null;
     }
   };
+
   return (
     <React.Fragment>
       <div className="relative">
@@ -24,7 +26,11 @@ const ThanksHeader: React.FC = () => {
               : PostImage
           }
           alt="Stamp"
-          className={Object.keys(cardDetails).length > 0 ? "h-16 w-16 shadow stamp-border cursor-pointer" : "h-16 w-16 shadow stamp-border"}
+          className={
+            Object.keys(cardDetails).length > 0
+              ? "h-16 w-16 shadow stamp-border cursor-pointer"
+              : "h-16 w-16 shadow stamp-border"
+          }
           onClick={handleLogout}
         />
         {showTooltip && (
