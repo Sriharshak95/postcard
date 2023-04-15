@@ -1,25 +1,14 @@
 import React from "react";
-import PostImage from "../../assets/stamp.png";
+import {useLocation} from 'react-router-dom';
+import ThanksHeader from "./thanksHeader";
+import NormalHeader from "./normalHeader";
+import { CardHeaderInterface } from "../../interface";
 
-const CardHeader: React.FC<{ userDetails?: {
-    name: string;
-    email: string;
-    picture: string;
-}}> = ({userDetails}) => {
+const CardHeader: React.FC<CardHeaderInterface> = ({userDetails}) => {
+  const location = useLocation();
   return (
     <div className="flex justify-between items-center justify-end text-black font-bold px-4 py-2 mt-2">
-      <div className="app-title">Incentive</div>
-      <div className="relative">
-        <img
-          src={
-            Object.keys(userDetails).length > 0
-              ? userDetails.picture
-              : PostImage
-          }
-          alt="Stamp"
-          className="h-16 w-16 shadow stamp-border"
-        />
-      </div>
+      {location.pathname.includes('thanks') ? <ThanksHeader /> : <NormalHeader userDetails={userDetails} />}
     </div>
   );
 };

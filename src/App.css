@@ -40,6 +40,31 @@
   font-size: 40px;
 }
 
+.tooltip {
+  visibility: hidden;
+  position: absolute;
+  bottom: -25px;
+  cursor: pointer;
+  font-size: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 5px;
+  background-color: #555;
+  color: #fff;
+  border-radius: 6px;
+  text-align: center;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+.relative:hover .tooltip {
+  visibility: visible;
+}
+
+.profile {
+  cursor: pointer;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

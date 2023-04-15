@@ -2,5 +2,6 @@ import React from 'react';
 
 const UserAuthContext = React.createContext(null);
 const SocialMediaContext = React.createContext(null);
+const PostCardDetailsContext = React.createContext(null);
 
-export { UserAuthContext, SocialMediaContext };
+export { UserAuthContext, SocialMediaContext, PostCardDetailsContext };

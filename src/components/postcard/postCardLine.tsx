@@ -1,7 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import CardInput from "../cardInput";
+import { PostCardDetailsContext } from "../../store";
 
 const PostCardLine: React.FC = (props) => {
+  const {cardDetails, setCardDetails} = useContext(PostCardDetailsContext);
   const [toTextBox, setToTextBox] = useState({
     value: "",
     isFocus: false,
@@ -70,8 +72,8 @@ const PostCardLine: React.FC = (props) => {
 
   return (
     <React.Fragment>
-      <div className="flex" ref={toRef}>
-        {/* <select
+      <div className="w-1/3" ref={toRef}>
+        <select
           name="options"
           id="options"
           className="text-[15px] bg-indian-post"
@@ -85,7 +87,7 @@ const PostCardLine: React.FC = (props) => {
               dangerouslySetInnerHTML={{ __html: option.label }}
             />
           ))}
-        </select> */}
+        </select>
 
         <CardInput
           type="text"
@@ -96,16 +98,20 @@ const PostCardLine: React.FC = (props) => {
           }}
           onChange={(e) => {
             setToTextBox({ ...toTextBox, value: e.target.value });
+            setCardDetails({...cardDetails, toHandle: e.target.value});
           }}
           value={toTextBox.value}
         />
       </div>
-      <div className="flex" ref={fromRef}>
+      <div className="w-1/3">
         <select
           name="options"
           id="options"
           className="text-[15px] bg-indian-post"
-          onChange={(e) => setSelectedOption(e.target.value)}
+          onChange={(e) => {
+            setCardDetails({...cardDetails, purpose: e.target.value});
+            setSelectedOption(e.target.value)
+          }}
           value={selectedOption}
         >
           {options.map((data, index) => {
@@ -116,7 +122,9 @@ const PostCardLine: React.FC = (props) => {
             );
           })}
         </select>
-        {/* <select
+      </div>
+      <div className="w-1/3" ref={fromRef}>
+        <select
           name="options"
           id="options"
           className="text-[15px] bg-indian-post"
@@ -130,7 +138,7 @@ const PostCardLine: React.FC = (props) => {
               dangerouslySetInnerHTML={{ __html: option.label }}
             />
           ))}
-        </select> */}
+        </select>
         <CardInput
           type="text"
           placeholder="Enter Twitter handle"
@@ -140,6 +148,7 @@ const PostCardLine: React.FC = (props) => {
           }}
           onChange={(e) => {
             setFromTextBox({ ...fromTextBox, value: e.target.value });
+            setCardDetails({...cardDetails, fromHandle: e.target.value});
           }}
           value={fromTextBox.value}
         />
