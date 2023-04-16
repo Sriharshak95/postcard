@@ -27,7 +27,7 @@ const PostCard: React.FC<{ children: JSX.Element }> = (props) => {
       <PostCardDetailsContext.Provider value={{ cardDetails, setCardDetails }}>
         <div className="min-w-[570px] max-w-[570px] bg-indian-post rounded-lg border-2 border-yellow-800 h-96 flex flex-col">
           <CardHeader userDetails={userDetails} />
-          <div className="flex-1 w-full self-center">
+          <div className="flex flex-1 w-full justify-center">
             <div className="px-5 py-4 text-center">{props.children}</div>
           </div>
         </div>

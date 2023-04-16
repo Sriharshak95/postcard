@@ -27,7 +27,7 @@ const PostForm: React.FC = (props) => {
       });
       setCardDetails({ ...cardDetails, savedId: savedDetails.id });
       setSpinner(false);
-      navigate('done');
+      navigate('/done');
     } catch (error) {
       setSpinner(false);
     }
