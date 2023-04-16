@@ -1,4 +1,4 @@
-import { useContext} from "react";
+import { useContext, useState } from "react";
 import { UserAuthContext } from "../store";
 import { useLocation, Navigate } from "react-router-dom";
 import SignInTwitter from "../components/button/signInTwitter";
@@ -6,11 +6,17 @@ import { signInWithPopup } from "firebase/auth";
 import { auth, Provider } from "../utils/firebase";
 import CustomSpinner from "../components/spinner";
 import useInviteDetails from "../hooks/useInviteDetails";
+import SayThanksCards from "../components/cardThanks";
+import SayThanksImage from '../assets/saythanks.png';
+import Zomato from '../assets/zomato.png';
+import AmazonGift from '../assets/amazongift.png';
+import Play from '../assets/play.png';
 
 function Thanks() {
   const { userDetails, setUserDetails } = useContext(UserAuthContext);
   const location = useLocation();
-  const {inviteDetails, isLoading} = useInviteDetails(location);
+  const { inviteDetails, isLoading } = useInviteDetails(location);
+  const [isCouponsVisible, setCouponsVisible] = useState(false);
 
   const handleClick = () => {
     signInWithPopup(auth, Provider).then((data) => {
@@ -53,6 +59,18 @@ function Thanks() {
               </a>
               <div className="text-[14px]">{inviteDetails.desc}</div>
             </div>
+            {!isCouponsVisible ? <button
+              className="bg-orange-400 mt-5 w-full text-[18px] text-white py-2"
+              onClick={() => setCouponsVisible(true)}
+            >
+              Say Thanks
+            </button> :
+            <div className="flex justify-between mt-4">
+              <div className="w-1/3 mr-2 p-2"> <SayThanksCards src={SayThanksImage}/> </div>
+              <div className="w-1/3 mr-2 p-2"> <SayThanksCards src={Zomato} /> </div>
+              <div className="w-1/3 p-2"> <SayThanksCards src={AmazonGift} /> </div>
+              <div className="w-1/3 p-2"> <SayThanksCards src={Play} /> </div>
+            </div>}
           </>
         );
       } else {
