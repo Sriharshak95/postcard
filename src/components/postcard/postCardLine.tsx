@@ -73,7 +73,7 @@ const PostCardLine: React.FC = (props) => {
   return (
     <React.Fragment>
       <div className="w-1/3" ref={toRef}>
-        <select
+        {/* <select
           name="options"
           id="options"
           className="text-[15px] bg-indian-post"
@@ -87,7 +87,7 @@ const PostCardLine: React.FC = (props) => {
               dangerouslySetInnerHTML={{ __html: option.label }}
             />
           ))}
-        </select>
+        </select> */}
 
         <CardInput
           type="text"
@@ -124,7 +124,7 @@ const PostCardLine: React.FC = (props) => {
         </select>
       </div>
       <div className="w-1/3" ref={fromRef}>
-        <select
+        {/* <select
           name="options"
           id="options"
           className="text-[15px] bg-indian-post"
@@ -138,7 +138,7 @@ const PostCardLine: React.FC = (props) => {
               dangerouslySetInnerHTML={{ __html: option.label }}
             />
           ))}
-        </select>
+        </select> */}
         <CardInput
           type="text"
           placeholder="Enter Twitter handle"

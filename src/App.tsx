@@ -7,6 +7,7 @@ import PostCard from "./components/postcard";
 import NotFound from "./pages/notFound";
 import Done from "./pages/done";
 import Thanks from "./pages/thanks";
+import Landing from "./pages/landing";
 
 function App() {
   const { userDetails, setUserDetails } = useUser();
@@ -17,7 +18,8 @@ function App() {
           <header className="App-header">
             <PostCard>
               <Routes>
-                <Route path="/" element={<Main />} />
+                <Route path="/" element={<Landing />} />
+                <Route path="/main" element={<Main />} />
                 <Route path="/done" element={<Done />} />
                 <Route path="/thanks/:id" element={<Thanks />} />
                 <Route path="*" element={<NotFound />} />

@@ -19,7 +19,7 @@ const NormalHeader: React.FC<{
   };
   return (
     <React.Fragment>
-      <Link to="/" className="app-title">
+      <Link to="/main" className="app-title">
         Incentive
       </Link>
       <div className="relative">

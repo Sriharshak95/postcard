@@ -45,7 +45,7 @@ const ThanksHeader: React.FC = () => {
           </div>
         )}
       </div>
-      <Link to="/" className="app-title">
+      <Link to="/main" className="app-title">
         Incentive
       </Link>
     </React.Fragment>
