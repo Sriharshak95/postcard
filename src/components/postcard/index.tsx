@@ -8,7 +8,7 @@ const PostCard: React.FC<{ children: JSX.Element }> = (props) => {
     toHandle: "",
     fromHandle: "",
     desc: "",
-    purpose: "",
+    purpose: "Should talk to",
     savedId: "",
     introducer: userDetails.name,
     introducerImage: userDetails.picture,
