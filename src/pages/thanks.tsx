@@ -34,36 +34,37 @@ function Thanks() {
   if (Object.keys(userDetails).length > 0) {
     if (!isLoading) {
       if (
-        userDetails.handleName === inviteDetails.fromHandle ||
-        userDetails.handleName === inviteDetails.toHandle
+        (userDetails.handleName === inviteDetails.fromHandle) ||
+        (userDetails.handleName === inviteDetails.toHandle)
       ) {
         return (
           <>
             <div className="flex items-center justify-between">
-              <a
-                href={"https://twitter.com/" + inviteDetails.fromHandle}
-                rel="noreferrer"
-                target="_blank"
-                className="text-[14px] underline"
-              >
-                {"@" + inviteDetails.fromHandle}
-              </a>
-              -<div className="text-[14px]">{inviteDetails.purpose}</div> -
               <a
                 href={"https://twitter.com/" + inviteDetails.toHandle}
                 rel="noreferrer"
                 target="_blank"
                 className="text-[14px] underline"
               >
-                {"@" + inviteDetails.toHandle}
+                {inviteDetails.toHandleImage.length > 0 ? <img className="rounded-full" src={inviteDetails.toHandleImage} alt="from" /> : <span>@{inviteDetails.toHandle}</span>}
               </a>
-              <div className="text-[14px]">{inviteDetails.desc}</div>
+              -<div className="text-[1rem]">{inviteDetails.purpose}</div> -
+              <a
+                href={"https://twitter.com/" + inviteDetails.fromHandle}
+                rel="noreferrer"
+                target="_blank"
+                className="text-[14px] underline"
+              >
+                {inviteDetails.fromHandleImage.length > 0 ? <img className="rounded-full" src={inviteDetails.fromHandleImage} alt="to" /> : <span>@{inviteDetails.fromHandle}</span>}
+              </a>
             </div>
+
+            <div className="text-[18px] p-5">{inviteDetails.desc}</div>
             {!isCouponsVisible ? <button
               className="bg-orange-400 mt-5 w-full text-[18px] text-white py-2"
               onClick={() => setCouponsVisible(true)}
             >
-              Say Thanks
+              Say Thanks to {inviteDetails.introducer}
             </button> :
             <div className="flex justify-between mt-4">
               <div className="w-1/3 mr-2 p-2"> <SayThanksCards src={SayThanksImage}/> </div>
@@ -74,7 +75,6 @@ function Thanks() {
           </>
         );
       } else {
-        localStorage.clear();
         return <Navigate to="/404" />;
       }
     } else {

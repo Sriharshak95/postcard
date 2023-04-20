@@ -1,6 +1,7 @@
 import React from "react";
 import PostImage from "../../assets/stamp.png";
 import { Link } from "react-router-dom";
+import { auth } from "../../utils/firebase";
 
 const NormalHeader: React.FC<{
   userDetails?: {
@@ -11,10 +12,10 @@ const NormalHeader: React.FC<{
 }> = ({ userDetails }) => {
   const [showTooltip, setShowTooltip] = React.useState(false);
   const handleLogout = () => {
-    if(Object.keys(userDetails).length > 0) {
-        setShowTooltip(!showTooltip)
+    if (Object.keys(userDetails).length > 0) {
+      setShowTooltip(!showTooltip);
     } else {
-        return null;
+      return null;
     }
   };
   return (
@@ -31,14 +32,20 @@ const NormalHeader: React.FC<{
           }
           onClick={handleLogout}
           alt="Stamp"
-          className={Object.keys(userDetails).length > 0 ? "h-16 w-16 shadow stamp-border cursor-pointer" : "h-16 w-16 shadow stamp-border"}
+          className={
+            Object.keys(userDetails).length > 0
+              ? "h-16 w-16 shadow stamp-border cursor-pointer"
+              : "h-16 w-16 shadow stamp-border"
+          }
         />
         {showTooltip && (
           <div
             className="tooltip"
             onClick={() => {
-              localStorage.clear();
-              window.location.reload();
+              auth.signOut().then(() =>{
+                localStorage.clear();
+                window.location.reload();
+              })
             }}
           >
             <span>Logout</span>

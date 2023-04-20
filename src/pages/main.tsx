@@ -5,6 +5,7 @@ import { UserAuthContext } from "../store";
 import { useSearchParams } from "react-router-dom";
 import { auth, Provider } from "../utils/firebase";
 import { signInWithPopup } from "firebase/auth";
+import withAuth from "../hooks/withAuth";
 
 function Main() {
   const {userDetails, setUserDetails} = useContext(UserAuthContext);
@@ -36,4 +37,4 @@ function Main() {
   );
 }
 
-export default Main;
+export default withAuth(Main);

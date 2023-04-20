@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { PostCardDetailsContext, SocialMediaContext } from "../../store";
 import PostCardLine from "./postCardLine";
 import CardInput from "../cardInput";
@@ -6,6 +6,7 @@ import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../utils/firebase";
 import CustomSpinner from "../spinner";
 import { useNavigate } from "react-router-dom";
+import SimpleReactValidator from "simple-react-validator";
 
 const PostForm: React.FC = (props) => {
   const [socialText, setSocialText] = useState("");
@@ -14,20 +15,25 @@ const PostForm: React.FC = (props) => {
   const [isSpinner, setSpinner] = useState(false);
   const navigate = useNavigate();
 
-  const sendTweet = async () => {
+  const sendTweet = async (simpleValidator, forceUpdate) => {
     try {
-      setSpinner(true);
-      const savedDetails = await addDoc(collection(db, "incentive-cards"), {
-        toHandle: cardDetails.toHandle,
-        fromHandle: cardDetails.fromHandle,
-        desc: cardDetails.desc,
-        purpose: cardDetails.purpose,
-        introducer: cardDetails.introducer,
-        introducerImage: cardDetails.introducerImage
-      });
-      setCardDetails({ ...cardDetails, savedId: savedDetails.id });
-      setSpinner(false);
-      navigate('/done');
+      if (simpleValidator.current.allValid()) {
+        setSpinner(true);
+        const savedDetails = await addDoc(collection(db, "incentive-cards"), {
+          toHandle: cardDetails.toHandle,
+          fromHandle: cardDetails.fromHandle,
+          desc: cardDetails.desc,
+          purpose: cardDetails.purpose,
+          introducer: cardDetails.introducer,
+          introducerImage: cardDetails.introducerImage,
+        });
+        setCardDetails({ ...cardDetails, savedId: savedDetails.id });
+        setSpinner(false);
+        navigate("/done");
+      } else {
+        simpleValidator.current.showMessages();
+        forceUpdate(1);
+      }
     } catch (error) {
       setSpinner(false);
     }
@@ -37,28 +43,7 @@ const PostForm: React.FC = (props) => {
     <React.Fragment>
       {!isSpinner ? (
         <SocialMediaContext.Provider value={{ socialText, setSocialText }}>
-          <div className="flex mb-4 flex-nowrap">
-            <PostCardLine />
-          </div>
-          <CardInput
-            type="text"
-            className="w-full mt-5"
-            placeholder="description"
-            value={descText}
-            onChange={(e) => {
-              setDescText(e.target.value);
-              setCardDetails({ ...cardDetails, desc: e.target.value });
-            }}
-          />
-
-          <div className="mt-4">
-            <button
-              className="bg-orange-400 mt-5 w-full text-[18px] text-white py-2"
-              onClick={() => sendTweet()}
-            >
-              Submit
-            </button>
-          </div>
+            <PostCardLine sendTweetCallback={(validator, forceUpdate) => sendTweet(validator, forceUpdate)} />
         </SocialMediaContext.Provider>
       ) : (
         <CustomSpinner />

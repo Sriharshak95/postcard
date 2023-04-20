@@ -6,15 +6,19 @@ const CardInput: React.FC<{
   type: string;
   placeholder?: string;
   className?: string;
+  name: string;
+  maxLength: number;
 }> = (props) => {
   const defaultClassName = `text-[15px] border-b-2 bg-indian-post border-black focus:border-transparent focus:ring-0 focus:outline-none`;
   return (
     <input
+      name={props.name}
       className={
         props.className
           ? defaultClassName + " " + props.className
           : defaultClassName
       }
+      maxLength={props.maxLength}
       type={props.type}
       value={props.value}
       onClick={props.onChange}
