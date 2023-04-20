@@ -10,7 +10,7 @@ const ThanksHeader: React.FC = () => {
   const location = useLocation();
   const { inviteDetails, isLoading } = useInviteDetails(location);
   const [showTooltip, setShowTooltip] = React.useState(false);
-  const { userDetails, setUserDetails } = useContext(UserAuthContext);
+  const { userDetails, } = useContext(UserAuthContext);
 
   const handleLogout = () => {
     if (Object.keys(cardDetails).length > 0) {

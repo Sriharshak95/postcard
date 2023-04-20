@@ -1,16 +1,13 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useState } from "react";
 import { PostCardDetailsContext, SocialMediaContext } from "../../store";
 import PostCardLine from "./postCardLine";
-import CardInput from "../cardInput";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../utils/firebase";
 import CustomSpinner from "../spinner";
 import { useNavigate } from "react-router-dom";
-import SimpleReactValidator from "simple-react-validator";
 
 const PostForm: React.FC = (props) => {
   const [socialText, setSocialText] = useState("");
-  const [descText, setDescText] = useState("");
   const { cardDetails, setCardDetails } = useContext(PostCardDetailsContext);
   const [isSpinner, setSpinner] = useState(false);
   const navigate = useNavigate();
