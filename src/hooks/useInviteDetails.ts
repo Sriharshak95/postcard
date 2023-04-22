@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getDoc, doc } from "firebase/firestore";
 import { db } from "../utils/firebase";
 import axios from "axios";
+import { hostName } from "../utils/changeUrl";
 
 function useInviteDetails(location) {
   const [inviteDetails, setInviteDetails] = useState({
@@ -50,7 +51,7 @@ function useInviteDetails(location) {
 
   const getUserNameProfilePic = async(toUsername, fromUsername) => {
     try {
-      const userProfile = (await axios.get(`http://localhost:443/username?toUsername=${toUsername}&fromUsername=${fromUsername}`, {
+      const userProfile = (await axios.get(`${hostName}/username?toUsername=${toUsername}&fromUsername=${fromUsername}`, {
         headers: {
           "Authorization": "Access-Control-Allow-Origin"
         }

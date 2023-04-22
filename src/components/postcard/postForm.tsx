@@ -10,6 +10,7 @@ import { db } from "../../utils/firebase";
 import CustomSpinner from "../spinner";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { hostName } from "../../utils/changeUrl";
 
 const PostForm: React.FC = (props) => {
   const [socialText, setSocialText] = useState("");
@@ -35,7 +36,7 @@ const PostForm: React.FC = (props) => {
         };
 
         const sentTweetDetails = (
-          await axios.post(`http://localhost:443/api/tweet`, tweetText, {
+          await axios.post(`${hostName}/api/tweet`, tweetText, {
             headers: {
               Authorization: "Access-Control-Allow-Origin",
             },
