@@ -1,10 +1,15 @@
 import React, { useContext, useState } from "react";
-import { PostCardDetailsContext, SocialMediaContext } from "../../store";
+import {
+  PostCardDetailsContext,
+  SocialMediaContext,
+  UserAuthContext,
+} from "../../store";
 import PostCardLine from "./postCardLine";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../utils/firebase";
 import CustomSpinner from "../spinner";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const PostForm: React.FC = (props) => {
   const [socialText, setSocialText] = useState("");
@@ -24,9 +29,25 @@ const PostForm: React.FC = (props) => {
           introducer: cardDetails.introducer,
           introducerImage: cardDetails.introducerImage,
         });
-        setCardDetails({ ...cardDetails, savedId: savedDetails.id });
-        setSpinner(false);
-        navigate("/done");
+
+        const tweetText = {
+          tweetText: `@${cardDetails.toHandle} ${cardDetails.purpose} @${cardDetails.fromHandle} ${cardDetails.desc}`,
+        };
+
+        const sentTweetDetails = (
+          await axios.post(`http://localhost:443/api/tweet`, tweetText, {
+            headers: {
+              Authorization: "Access-Control-Allow-Origin",
+            },
+          })
+        ).data;
+
+        if (sentTweetDetails.status) {
+          setCardDetails({ ...cardDetails, savedId: savedDetails.id });
+          setSpinner(false);
+          navigate("/done");
+        }
+
       } else {
         simpleValidator.current.showMessages();
         forceUpdate(1);
@@ -40,7 +61,11 @@ const PostForm: React.FC = (props) => {
     <React.Fragment>
       {!isSpinner ? (
         <SocialMediaContext.Provider value={{ socialText, setSocialText }}>
-            <PostCardLine sendTweetCallback={(validator, forceUpdate) => sendTweet(validator, forceUpdate)} />
+          <PostCardLine
+            sendTweetCallback={(validator, forceUpdate) =>
+              sendTweet(validator, forceUpdate)
+            }
+          />
         </SocialMediaContext.Provider>
       ) : (
         <CustomSpinner />

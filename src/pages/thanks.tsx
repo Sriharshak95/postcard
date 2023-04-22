@@ -24,7 +24,7 @@ function Thanks() {
         name: data.user.displayName,
         email: data.user.email,
         picture: data.user.photoURL,
-        handleName: data.user["reloadUserInfo"]["screenName"],
+        handleName: data.user["reloadUserInfo"]["screenName"]
       };
       setUserDetails(user);
       localStorage.setItem("userDetails", JSON.stringify(user));

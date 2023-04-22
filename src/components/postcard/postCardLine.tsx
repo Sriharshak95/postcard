@@ -3,7 +3,12 @@ import CardInput from "../cardInput";
 import { PostCardDetailsContext } from "../../store";
 import SimpleReactValidator from "simple-react-validator";
 
-const PostCardLine: React.FC<{ sendTweetCallback: (validator: React.MutableRefObject<SimpleReactValidator>, forceUpdate: any) => void }> = (props) => {
+const PostCardLine: React.FC<{
+  sendTweetCallback: (
+    validator: React.MutableRefObject<SimpleReactValidator>,
+    forceUpdate: any
+  ) => void;
+}> = (props) => {
   const { cardDetails, setCardDetails } = useContext(PostCardDetailsContext);
   const [toTextBox, setToTextBox] = useState({
     value: "",
@@ -80,49 +85,37 @@ const PostCardLine: React.FC<{ sendTweetCallback: (validator: React.MutableRefOb
     <React.Fragment>
       <div className="flex mb-4 flex-nowrap">
         <div className="w-1/3" ref={toRef}>
-          {/* <select
-          name="options"
-          id="options"
-          className="text-[15px] bg-indian-post"
-          onChange={(e) => handleOptionSelect(e.target.value)}
-          value={selectedUrlOption}
-        >
-          {urlOptions.map((option, index) => (
-            <option
-              key={index}
-              value={option.value}
-              dangerouslySetInnerHTML={{ __html: option.label }}
+          <div className="flex">
+            <span className="text-[15px]">@</span>
+            <CardInput
+              type="text"
+              name="toHandle"
+              maxLength={80}
+              placeholder="Enter Twitter handle"
+              onFocus={(e) => {
+                setFromTextBox({ ...fromTextBox, isFocus: false });
+                setToTextBox({ ...toTextBox, isFocus: true });
+              }}
+              onChange={(e) => {
+                setToTextBox({ ...toTextBox, value: e.target.value });
+                setCardDetails({ ...cardDetails, toHandle: e.target.value });
+              }}
+              value={toTextBox.value}
             />
-          ))}
-        </select> */}
-
-          <CardInput
-            type="text"
-            name="toHandle"
-            maxLength={80}
-            placeholder="Enter Twitter handle"
-            onFocus={(e) => {
-              setFromTextBox({ ...fromTextBox, isFocus: false });
-              setToTextBox({ ...toTextBox, isFocus: true });
-            }}
-            onChange={(e) => {
-              setToTextBox({ ...toTextBox, value: e.target.value });
-              setCardDetails({ ...cardDetails, toHandle: e.target.value });
-            }}
-            value={toTextBox.value}
-          />
-          {simpleValidator.current.message(
-            "toHandle",
-            toTextBox.value,
-            "required|regex:^[a-zA-Z0-9]*$",
-            {
-              messages: {
-                regex: "Can only contain letter, spaces",
-              },
-            }
-          )}
+            {simpleValidator.current.message(
+              "toHandle",
+              toTextBox.value,
+              "required|regex:^[a-zA-Z0-9]*$",
+              {
+                messages: {
+                  regex: "Can only contain letter, spaces",
+                },
+              }
+            )}
+          </div>
         </div>
         <div className="w-1/3">
+          <div className="flex justify-center">
           <select
             name="options"
             id="options"
@@ -141,48 +134,37 @@ const PostCardLine: React.FC<{ sendTweetCallback: (validator: React.MutableRefOb
               );
             })}
           </select>
+          </div>
         </div>
         <div className="w-1/3" ref={fromRef}>
-          {/* <select
-          name="options"
-          id="options"
-          className="text-[15px] bg-indian-post"
-          onChange={(e) => handleOptionSelect(e.target.value)}
-          value={selectedUrlOption}
-        >
-          {urlOptions.map((option, index) => (
-            <option
-              key={index}
-              value={option.value}
-              dangerouslySetInnerHTML={{ __html: option.label }}
+          <div className="flex">
+            <span className="text-[15px]">@</span>
+            <CardInput
+              type="text"
+              name="fromHandle"
+              maxLength={80}
+              placeholder="Enter Twitter handle"
+              onFocus={(e) => {
+                setToTextBox({ ...toTextBox, isFocus: false });
+                setFromTextBox({ ...fromTextBox, isFocus: true });
+              }}
+              onChange={(e) => {
+                setFromTextBox({ ...fromTextBox, value: e.target.value });
+                setCardDetails({ ...cardDetails, fromHandle: e.target.value });
+              }}
+              value={fromTextBox.value}
             />
-          ))}
-        </select> */}
-          <CardInput
-            type="text"
-            name="fromHandle"
-            maxLength={80}
-            placeholder="Enter Twitter handle"
-            onFocus={(e) => {
-              setToTextBox({ ...toTextBox, isFocus: false });
-              setFromTextBox({ ...fromTextBox, isFocus: true });
-            }}
-            onChange={(e) => {
-              setFromTextBox({ ...fromTextBox, value: e.target.value });
-              setCardDetails({ ...cardDetails, fromHandle: e.target.value });
-            }}
-            value={fromTextBox.value}
-          />
-          {simpleValidator.current.message(
-            "fromHandle",
-            fromTextBox.value,
-            "required|regex:^[a-zA-Z0-9]*$",
-            {
-              messages: {
-                regex: "Can only contain letter,number & spaces",
-              },
-            }
-          )}
+            {simpleValidator.current.message(
+              "fromHandle",
+              fromTextBox.value,
+              "required|regex:^[a-zA-Z0-9]*$",
+              {
+                messages: {
+                  regex: "Can only contain letter,number & spaces",
+                },
+              }
+            )}
+          </div>
         </div>
       </div>
 
@@ -199,21 +181,18 @@ const PostCardLine: React.FC<{ sendTweetCallback: (validator: React.MutableRefOb
             setCardDetails({ ...cardDetails, desc: e.target.value });
           }}
         />
-        {simpleValidator.current.message(
-          "description",
-          descText,
-          "required",
-          {
-            messages: {
-              regex: "Can only contain letter, spaces",
-            },
-          }
-        )}
+        {simpleValidator.current.message("description", descText, "required", {
+          messages: {
+            regex: "Can only contain letter, spaces",
+          },
+        })}
 
         <div className="mt-4">
           <button
             className="bg-orange-400 mt-5 w-full text-[18px] text-white py-2"
-            onClick={() => props.sendTweetCallback(simpleValidator, forceUpdate)}
+            onClick={() =>
+              props.sendTweetCallback(simpleValidator, forceUpdate)
+            }
           >
             Submit
           </button>

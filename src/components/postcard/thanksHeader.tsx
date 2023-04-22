@@ -20,8 +20,6 @@ const ThanksHeader: React.FC = () => {
     }
   };
 
-  console.log(userDetails);
-
   return (
     <React.Fragment>
       {!isLoading ? Object.keys(userDetails).length!==0 ? <div className="relative">
