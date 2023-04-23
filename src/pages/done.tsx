@@ -2,11 +2,12 @@ import { useContext, useState } from "react";
 import { PostCardDetailsContext } from "../store";
 import withAuth from "../hooks/withAuth";
 import withPostCardWrapper from "../components/hoc";
+import { useSearchParams } from "react-router-dom";
 const Done: React.FC = () => {
   const { cardDetails } = useContext(PostCardDetailsContext);
-  const [inviteLinkValue] = useState(
-    window.location.host + "/thanks/" + cardDetails.savedId
-  );
+  const [searchParams] = useSearchParams();
+  const link = window.location.host + `/thanks/${Object.keys(Object.fromEntries(searchParams)).length > 0 ? Object.fromEntries(searchParams).id : ""}`;
+  const [inviteLinkValue] = useState(link);
   const copyLinkFunc = () => {
     navigator.clipboard.writeText(inviteLinkValue);
     setShowAlert(true);

@@ -46,7 +46,7 @@ const Sidebar: React.FC = () => {
           {listDetails.map((intro) => {
             return (
               <li key={intro.introId} className="block px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                <div className="flex items-center justify-between">
+                <div className="grid grid-cols-3">
                   <div>
                     {false ? (
                       <img

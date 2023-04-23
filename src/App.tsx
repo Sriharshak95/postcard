@@ -16,9 +16,9 @@ function App() {
       <BrowserRouter>
         <UserAuthContext.Provider value={{ userDetails, setUserDetails }}>
           <div className="container">
-            <div className="sidebar">
-              {/* <Sidebar /> */}
-            </div>
+            {/* <div className="sidebar">
+              <Sidebar />
+            </div> */}
             <div className="main-content">
               <header className="App-header">
                 <Routes>

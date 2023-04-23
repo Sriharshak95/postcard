@@ -34,7 +34,8 @@ const PostForm: React.FC = (props) => {
         });
 
         const tweetText = {
-          tweetText: `@${cardDetails.toHandle} ${cardDetails.purpose} @${cardDetails.fromHandle} ${cardDetails.desc}`,
+          tweetText: `@${cardDetails.toHandle} ${cardDetails.purpose} @${cardDetails.fromHandle} ${cardDetails.desc}
+          link:https://voluble-unicorn-fad212.netlify.app/thanks/${savedDetails.id}`,
         };
 
         const sentTweetDetails = (
@@ -48,7 +49,7 @@ const PostForm: React.FC = (props) => {
         if (sentTweetDetails.status) {
           setCardDetails({ ...cardDetails, savedId: savedDetails.id });
           setSpinner(false);
-          navigate("/done");
+          navigate(`/done?id=${savedDetails.id}`);
         }
 
       } else {

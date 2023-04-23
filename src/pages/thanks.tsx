@@ -7,10 +7,10 @@ import { auth, Provider } from "../utils/firebase";
 import CustomSpinner from "../components/spinner";
 import useInviteDetails from "../hooks/useInviteDetails";
 import SayThanksCards from "../components/cardThanks";
-import SayThanksImage from '../assets/saythanks.png';
-import Zomato from '../assets/zomato.png';
-import AmazonGift from '../assets/amazongift.png';
-import Play from '../assets/play.png';
+import SayThanksImage from "../assets/saythanks.png";
+import Zomato from "../assets/zomato.png";
+import AmazonGift from "../assets/amazongift.png";
+import Play from "../assets/play.png";
 import withPostCardWrapper from "../components/hoc";
 
 function Thanks() {
@@ -26,8 +26,8 @@ function Thanks() {
         email: data.user.email,
         picture: data.user.photoURL,
         handleName: data.user["reloadUserInfo"]["screenName"],
-        token: data.user['accessToken'],
-        uid: data.user.uid
+        token: data.user["accessToken"],
+        uid: data.user.uid,
       };
       setUserDetails(user);
       localStorage.setItem("userDetails", JSON.stringify(user));
@@ -37,11 +37,12 @@ function Thanks() {
   if (Object.keys(userDetails).length > 0) {
     if (!isLoading) {
       if (
-        (userDetails.handleName === inviteDetails.fromHandle) ||
-        (userDetails.handleName === inviteDetails.toHandle)
+        userDetails.handleName === inviteDetails.fromHandle ||
+        userDetails.handleName === inviteDetails.toHandle
       ) {
         return (
           <>
+          {!isCouponsVisible ? <div>
             <div className="flex items-center justify-between">
               <a
                 href={"https://twitter.com/" + inviteDetails.toHandle}
@@ -49,7 +50,15 @@ function Thanks() {
                 target="_blank"
                 className="text-[14px] underline"
               >
-                {inviteDetails.toHandleImage.length > 0 ? <img className="rounded-full" src={inviteDetails.toHandleImage} alt="from" /> : <span>@{inviteDetails.toHandle}</span>}
+                {inviteDetails.toHandleImage.length > 0 ? (
+                  <img
+                    className="rounded-full"
+                    src={inviteDetails.toHandleImage}
+                    alt="from"
+                  />
+                ) : (
+                  <span>@{inviteDetails.toHandle}</span>
+                )}
               </a>
               -<div className="text-[1rem]">{inviteDetails.purpose}</div> -
               <a
@@ -58,23 +67,46 @@ function Thanks() {
                 target="_blank"
                 className="text-[14px] underline"
               >
-                {inviteDetails.fromHandleImage.length > 0 ? <img className="rounded-full" src={inviteDetails.fromHandleImage} alt="to" /> : <span>@{inviteDetails.fromHandle}</span>}
+                {inviteDetails.fromHandleImage.length > 0 ? (
+                  <img
+                    className="rounded-full"
+                    src={inviteDetails.fromHandleImage}
+                    alt="to"
+                  />
+                ) : (
+                  <span>@{inviteDetails.fromHandle}</span>
+                )}
               </a>
             </div>
 
             <div className="text-[18px] p-5">{inviteDetails.desc}</div>
-            {!isCouponsVisible ? <button
+            <button
               className="bg-orange-400 mt-5 w-full text-[18px] text-white py-2"
               onClick={() => setCouponsVisible(true)}
             >
               Say Thanks to {inviteDetails.introducer}
-            </button> :
-            <div className="flex justify-between mt-4">
-              <div className="w-1/3 mr-2 p-2"> <SayThanksCards src={SayThanksImage}/> </div>
-              <div className="w-1/3 mr-2 p-2"> <SayThanksCards src={Zomato} /> </div>
-              <div className="w-1/3 p-2"> <SayThanksCards src={AmazonGift} /> </div>
-              <div className="w-1/3 p-2"> <SayThanksCards src={Play} /> </div>
-            </div>}
+            </button>
+          </div>
+          :
+            
+            <div className="inset-0 flex items-center justify-center">
+              <div className="bg-white p-8 rounded-lg shadow-lg">
+                <h3 className="font-bold text-lg mb-4">Thank You!</h3>
+                <p className="mb-4">
+                  Here's a coupon for you:{" "}
+                  <span className="font-medium text-yellow-800">THANKS25</span>
+                </p>
+                <p className="text-sm text-gray-600">
+                  *Valid until April 30, 2023
+                </p>
+                <button
+                  onClick={() => setCouponsVisible(false)}
+                  className="mt-6 text-sm font-medium text-gray-600 hover:text-yellow-800 focus:outline-none"
+                >
+                  Close
+                </button>
+              </div>
+            </div> }
           </>
         );
       } else {
