@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { PostCardDetailsContext, UserAuthContext } from "../../store";
 import CardHeader from "./cardHeader";
+import { Link } from "react-router-dom";
 
-const PostCard: React.FC<{ children: JSX.Element }> = (props) => {
+const PostCard: React.FC<{ children: JSX.Element | JSX.Element[] }> = (props) => {
   const { userDetails } = useContext(UserAuthContext);
   const [cardDetails, setCardDetails] = useState({
     toHandle: "",

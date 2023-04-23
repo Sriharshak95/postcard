@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { PostCardDetailsContext } from "../store";
 import withAuth from "../hooks/withAuth";
+import withPostCardWrapper from "../components/hoc";
 const Done: React.FC = () => {
   const { cardDetails } = useContext(PostCardDetailsContext);
   const [inviteLinkValue] = useState(
@@ -38,4 +39,4 @@ const Done: React.FC = () => {
   );
 };
 
-export default withAuth(Done);
+export default withAuth(withPostCardWrapper(Done));

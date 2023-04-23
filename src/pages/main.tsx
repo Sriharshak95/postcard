@@ -5,6 +5,7 @@ import { UserAuthContext } from "../store";
 import { useSearchParams } from "react-router-dom";
 import { auth, Provider } from "../utils/firebase";
 import { signInWithPopup } from "firebase/auth";
+import withPostCardWrapper from "../components/hoc";
 
 function Main() {
   const {userDetails, setUserDetails} = useContext(UserAuthContext);
@@ -17,7 +18,8 @@ function Main() {
         email: data.user.email,
         picture: data.user.photoURL,
         handleName: data.user['reloadUserInfo']['screenName'],
-        token: data.user['accessToken']
+        token: data.user['accessToken'],
+        uid: data.user.uid
       };
       setUserDetails(user);
       localStorage.setItem("userDetails", JSON.stringify(user));
@@ -37,4 +39,4 @@ function Main() {
   );
 }
 
-export default Main;
+export default withPostCardWrapper(Main);

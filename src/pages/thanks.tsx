@@ -11,6 +11,7 @@ import SayThanksImage from '../assets/saythanks.png';
 import Zomato from '../assets/zomato.png';
 import AmazonGift from '../assets/amazongift.png';
 import Play from '../assets/play.png';
+import withPostCardWrapper from "../components/hoc";
 
 function Thanks() {
   const { userDetails, setUserDetails } = useContext(UserAuthContext);
@@ -24,7 +25,9 @@ function Thanks() {
         name: data.user.displayName,
         email: data.user.email,
         picture: data.user.photoURL,
-        handleName: data.user["reloadUserInfo"]["screenName"]
+        handleName: data.user["reloadUserInfo"]["screenName"],
+        token: data.user['accessToken'],
+        uid: data.user.uid
       };
       setUserDetails(user);
       localStorage.setItem("userDetails", JSON.stringify(user));
@@ -85,4 +88,4 @@ function Thanks() {
   }
 }
 
-export default Thanks;
+export default withPostCardWrapper(Thanks);

@@ -3,6 +3,7 @@ import { addDoc, collection } from "firebase/firestore";
 import { db } from "../utils/firebase";
 import { useState } from "react";
 import CustomSpinner from "../components/spinner";
+import withPostCardWrapper from "../components/hoc";
 
 function Landing() {
   const [email, setEmail] = useState('');
@@ -64,4 +65,4 @@ function Landing() {
   );
 }
 
-export default Landing;
+export default withPostCardWrapper(Landing);

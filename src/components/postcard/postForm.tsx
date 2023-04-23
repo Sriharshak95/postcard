@@ -15,6 +15,7 @@ import { hostName } from "../../utils/changeUrl";
 const PostForm: React.FC = (props) => {
   const [socialText, setSocialText] = useState("");
   const { cardDetails, setCardDetails } = useContext(PostCardDetailsContext);
+  const {userDetails} = useContext(UserAuthContext);
   const [isSpinner, setSpinner] = useState(false);
   const navigate = useNavigate();
 
@@ -29,6 +30,7 @@ const PostForm: React.FC = (props) => {
           purpose: cardDetails.purpose,
           introducer: cardDetails.introducer,
           introducerImage: cardDetails.introducerImage,
+          introducerId: userDetails.uid
         });
 
         const tweetText = {
@@ -38,7 +40,7 @@ const PostForm: React.FC = (props) => {
         const sentTweetDetails = (
           await axios.post(`${hostName}/api/tweet`, tweetText, {
             headers: {
-              Authorization: "Access-Control-Allow-Origin",
+              Authorization: "Bearer "+userDetails.token,
             },
           })
         ).data;
