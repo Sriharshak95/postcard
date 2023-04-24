@@ -34,7 +34,7 @@ const PostForm: React.FC = (props) => {
         });
 
         const tweetText = {
-          tweetText: `@${cardDetails.toHandle} ${cardDetails.purpose} @${cardDetails.fromHandle} ${cardDetails.desc} https://voluble-unicorn-fad212.netlify.app/thanks/${savedDetails.id}`,
+          tweetText: `@${cardDetails.toHandle} @${cardDetails.fromHandle} Check:https://voluble-unicorn-fad212.netlify.app/thanks/${savedDetails.id}`,
         };
 
         const sentTweetDetails = (
