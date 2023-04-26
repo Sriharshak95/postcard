@@ -7,9 +7,11 @@ import { auth, Provider } from "../utils/firebase";
 import { signInWithPopup } from "firebase/auth";
 import withPostCardWrapper from "../components/hoc";
 
+
 function Main() {
   const {userDetails, setUserDetails} = useContext(UserAuthContext);
   const [searchParams] = useSearchParams();
+  const vpa = '8971138094@ybl';
   
   const handleClick = () => {
     signInWithPopup(auth, Provider).then((data) => {

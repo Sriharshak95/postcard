@@ -3,6 +3,7 @@ import { PostCardDetailsContext } from "../store";
 import withAuth from "../hooks/withAuth";
 import withPostCardWrapper from "../components/hoc";
 import { useSearchParams } from "react-router-dom";
+
 const Done: React.FC = () => {
   const { cardDetails } = useContext(PostCardDetailsContext);
   const [searchParams] = useSearchParams();

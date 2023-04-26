@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../utils/firebase";
 import { useState } from "react";
+import QRCode from "react-qr-code";
+
 import CustomSpinner from "../components/spinner";
 import withPostCardWrapper from "../components/hoc";
 
@@ -9,6 +11,7 @@ function Landing() {
   const [email, setEmail] = useState('');
   const [isLoading, setLoading] = useState(false);
   const [isSubmitted, setSubmitted] = useState(false);
+  const upiId = '8971138094@ybl'
   const sendEmail = async () => {
     try {
         if(email.length > 0) {
@@ -48,6 +51,13 @@ function Landing() {
         Send digital rewards, better useful coupons, or fulfill a need for the
         help you have received. Make the thanks "count"
       </p>
+
+      <div>
+        <QRCode
+          value={`upi://pay?pa=${upiId}&am=10&cu=INR`}
+          />
+      </div>
+
       {!isLoading && !isSubmitted ? <div className="flex justify-center my-4">
         <input
           type="email"
