@@ -52,12 +52,6 @@ function Landing() {
         help you have received. Make the thanks "count"
       </p>
 
-      <div>
-        <QRCode
-          value={`upi://pay?pa=${upiId}&am=10&cu=INR`}
-          />
-      </div>
-
       {!isLoading && !isSubmitted ? <div className="flex justify-center my-4">
         <input
           type="email"
