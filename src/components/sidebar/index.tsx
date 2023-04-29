@@ -40,13 +40,26 @@ const Sidebar: React.FC = () => {
   }, [userDetails]);
 
   return (
-    <div className="bg-white rounded-lg border-2 border-yellow-800 h-96 flex flex-col w-72">
+    <div className="bg-white rounded-lg p-2 bg-orange-100 border-yellow-800 h-96 w-72">
+      <div className="p-2 flex justify-between">
+        <button className="text-blue-700 text-[14px] hover:text-blue-700">
+          <i className="fa-solid fa-address-card" /> intros
+        </button>
+        <button className="hover:text-green-700 text-[14px]">
+          <i className="fa-solid fa-gift" /> gifts
+        </button>
+      </div>
+
       <nav className="py-4">
         <ul className="space-y-2">
           {listDetails.map((intro) => {
             return (
-              <li key={intro.introId} className="block px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                <div className="grid grid-cols-3">
+              <Link
+                to={"/intros/"+intro.introId}
+                key={intro.introId}
+                className="block px-4 py-2 border-1 rounded-lg border-yellow-800 bg-indian-post hover:bg-gray-100 cursor-pointer"
+              >
+                <div className="flex text-[12px]">
                   <div>
                     {false ? (
                       <img
@@ -57,12 +70,10 @@ const Sidebar: React.FC = () => {
                         alt="from"
                       />
                     ) : (
-                      <span className="font-medium">
-                        @{intro.toHandle}
-                      </span>
+                      <span className="font-medium">@{intro.toHandle}</span>
                     )}
                   </div>
-                  <div className="text-[1rem]">{intro.purpose}</div>
+                  <div>{intro.purpose}</div>
                   <div>
                     {false ? (
                       <img
@@ -73,13 +84,11 @@ const Sidebar: React.FC = () => {
                         alt="to"
                       />
                     ) : (
-                      <span className="font-medium">
-                        @{intro.fromHandle}
-                      </span>
+                      <span className="font-medium">@{intro.fromHandle}</span>
                     )}
                   </div>
                 </div>
-              </li>
+              </Link>
             );
           })}
         </ul>

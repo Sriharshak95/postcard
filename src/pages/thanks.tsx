@@ -12,12 +12,15 @@ import Zomato from "../assets/zomato.png";
 import AmazonGift from "../assets/amazongift.png";
 import Play from "../assets/play.png";
 import withPostCardWrapper from "../components/hoc";
+import Coupon from "../components/coupon";
+import useIsCouponSent from "../hooks/useIsCouponSent";
 
 function Thanks() {
   const { userDetails, setUserDetails } = useContext(UserAuthContext);
   const location = useLocation();
   const { inviteDetails, isLoading } = useInviteDetails(location);
   const [isCouponsVisible, setCouponsVisible] = useState(false);
+  const {isCouponSent} = useIsCouponSent(location, userDetails.handleName);
 
   const handleClick = () => {
     signInWithPopup(auth, Provider).then((data) => {
@@ -80,33 +83,15 @@ function Thanks() {
             </div>
 
             <div className="text-[18px] p-5">{inviteDetails.desc}</div>
-            <button
+
+            {!isCouponSent && <button
               className="bg-orange-400 mt-5 w-full text-[18px] text-white py-2"
               onClick={() => setCouponsVisible(true)}
             >
               Say Thanks to {inviteDetails.introducer}
-            </button>
+            </button>}
           </div>
-          :
-            
-            <div className="inset-0 flex items-center justify-center">
-              <div className="bg-white p-8 rounded-lg shadow-lg">
-                <h3 className="font-bold text-lg mb-4">Thank You!</h3>
-                <p className="mb-4">
-                  Here's a coupon for you:{" "}
-                  <span className="font-medium text-yellow-800">THANKS25</span>
-                </p>
-                <p className="text-sm text-gray-600">
-                  *Valid until April 30, 2023
-                </p>
-                <button
-                  onClick={() => setCouponsVisible(false)}
-                  className="mt-6 text-sm font-medium text-gray-600 hover:text-yellow-800 focus:outline-none"
-                >
-                  Close
-                </button>
-              </div>
-            </div> }
+          : <Coupon setCouponsVisible={() => setCouponsVisible(false)} {...inviteDetails} {...userDetails} /> }
           </>
         );
       } else {

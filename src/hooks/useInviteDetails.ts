@@ -13,7 +13,8 @@ function useInviteDetails(location) {
     fromHandleImage: "",
     toHandleImage:"",
     introducerImage: "",
-    introducer: ""
+    introducer: "",
+    introducerId: ""
   });
   const [isLoading, setLoading] = useState(false);
 
@@ -35,16 +36,20 @@ function useInviteDetails(location) {
           object.purpose = docSnap.data().purpose;
           object.introducerImage = docSnap.data().introducerImage;
           object.introducer = docSnap.data().introducer;
+          object.introducerId = docSnap.data().introducerId
           if(data.status) {
             object.toHandleImage = data.profiles[0].profile_image_url;
             object.fromHandleImage = data.profiles[1].profile_image_url;
             setInviteDetails(object);
             setLoading(false);
           }
+        }).catch((error) => {
+          setLoading(false);
         });
       }
 
     } catch (error) {
+      setLoading(false);
       console.log(error);
     }
   };

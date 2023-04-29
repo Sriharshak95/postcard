@@ -51,12 +51,12 @@ function Landing() {
         Send digital rewards, better useful coupons, or fulfill a need for the
         help you have received. Make the thanks "count"
       </p>
-
+{/* 
       <div>
         <QRCode
           value={`upi://pay?pa=${upiId}&am=10&cu=INR`}
           />
-      </div>
+      </div> */}
 
       {!isLoading && !isSubmitted ? <div className="flex justify-center my-4">
         <input
