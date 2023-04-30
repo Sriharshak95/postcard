@@ -23,7 +23,6 @@ const Sidebar: React.FC = () => {
         const querySnapshot = await getDocs(q);
         const intros = [...listDetails];
         querySnapshot.forEach((doc) => {
-          console.log(doc['_document']['createTime']);
           intros.push({ ...doc.data(), introId: doc.id });
         });
 
