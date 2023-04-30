@@ -8,6 +8,29 @@
   color: #ff0000;
 }
 
+.timeline {
+  position: relative;
+}
+
+.timeline-divider {
+  position: absolute;
+  left: 0;
+  top: 10px; /* adjust to your desired distance from top */
+  bottom: 10px; /* adjust to your desired distance from bottom */
+  width: 1px;
+  background-color: gray;
+  transform: translateX(-50%);
+}
+
+.timeline a:first-child {
+  margin-top: 0;
+}
+
+.timeline a:last-child {
+  margin-bottom: 0;
+}
+
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
