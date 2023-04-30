@@ -39,10 +39,10 @@ const ThanksHeader: React.FC = () => {
           <div
             className="tooltip"
             onClick={() => {
-              auth.signOut().then(() =>{
+              auth.signOut().then(() => {
                 localStorage.clear();
                 window.location.reload();
-              })
+              });
             }}
           >
             <span>Logout</span>
@@ -52,16 +52,18 @@ const ThanksHeader: React.FC = () => {
       {!isLoading ? (
         Object.keys(userDetails).length !== 0 ? (
           <div className="relative">
-            <img
-              src={
-                inviteDetails.introducerImage &&
-                inviteDetails.introducerImage.length > 0
-                  ? inviteDetails.introducerImage
-                  : PostImage
-              }
-              alt="Stamp"
-              className={"h-16 w-16 shadow rounded-full"}
-            />
+            <Link to="/main">
+              <img
+                src={
+                  inviteDetails.introducerImage &&
+                  inviteDetails.introducerImage.length > 0
+                    ? inviteDetails.introducerImage
+                    : PostImage
+                }
+                alt="Stamp"
+                className={"h-16 w-16 shadow rounded-full"}
+              />
+            </Link>
           </div>
         ) : null
       ) : (

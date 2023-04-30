@@ -5,12 +5,11 @@ import { db } from "../utils/firebase";
 function useIsCouponSent(location, handleName) {
   const [isCouponSent, setCouponSent] = useState(false);
   const thankId = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
-    console.log(thankId, handleName);
   const getDocuments = async () => {
     try {
       const q = query(
         collection(db, "gifts"),
-        where("thankId", "==", "b2tzKxHKwebVzD8nGZIN"),
+        where("thankId", "==", thankId),
         where("handleName", "==", handleName)
       );
       const docSnap = await getDocs(q);

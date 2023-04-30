@@ -14,7 +14,9 @@ function useInviteDetails(location) {
     toHandleImage:"",
     introducerImage: "",
     introducer: "",
-    introducerId: ""
+    introducerId: "",
+    createdAt: "",
+    updatedAt: ""
   });
   const [isLoading, setLoading] = useState(false);
 
@@ -36,7 +38,9 @@ function useInviteDetails(location) {
           object.purpose = docSnap.data().purpose;
           object.introducerImage = docSnap.data().introducerImage;
           object.introducer = docSnap.data().introducer;
-          object.introducerId = docSnap.data().introducerId
+          object.introducerId = docSnap.data().introducerId;
+          object.createdAt = docSnap.data().createdAt;
+          object.updatedAt = docSnap.data().updatedAt;
           if(data.status) {
             object.toHandleImage = data.profiles[0].profile_image_url;
             object.fromHandleImage = data.profiles[1].profile_image_url;
