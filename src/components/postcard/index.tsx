@@ -1,10 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
 import { PostCardDetailsContext, UserAuthContext } from "../../store";
 import CardHeader from "./cardHeader";
-import { Link } from "react-router-dom";
+import TimeAgo from "timeago-react";
+import { Link, useLocation } from "react-router-dom";
+import useInviteDetails from "../../hooks/useInviteDetails";
+import IntroCreatedTime from "./introCreatedTime";
+import CustomSpinner from "../spinner";
 
-const PostCard: React.FC<{ children: JSX.Element | JSX.Element[] }> = (props) => {
+const PostCard: React.FC<{ children: JSX.Element | JSX.Element[] }> = (
+  props
+) => {
   const { userDetails } = useContext(UserAuthContext);
+  const location = useLocation();
+  const { inviteDetails, isLoading } = useInviteDetails(location);
   const [cardDetails, setCardDetails] = useState({
     toHandle: "",
     fromHandle: "",
@@ -31,6 +39,7 @@ const PostCard: React.FC<{ children: JSX.Element | JSX.Element[] }> = (props) =>
           <div className="flex flex-1 w-full justify-center">
             <div className="px-5 py-4 text-center">{props.children}</div>
           </div>
+          {inviteDetails.fromHandle!=="" ? !isLoading ? <IntroCreatedTime inviteDetails={inviteDetails} /> : <CustomSpinner /> : null}
         </div>
       </PostCardDetailsContext.Provider>
     </React.Fragment>
