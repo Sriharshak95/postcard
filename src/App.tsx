@@ -8,6 +8,7 @@ import Done from "./pages/done";
 import Thanks from "./pages/thanks";
 import Landing from "./pages/landing";
 import Sidebar from "./components/sidebar";
+import Intros from "./pages/intros";
 import Intro from "./pages/intro";
 
 function App() {
@@ -27,7 +28,8 @@ function App() {
                   <Route path="/main" element={<Main />} />
                   <Route path="/done" element={<Done />} />
                   <Route path="/thanks/:id" element={<Thanks />} />
-                  <Route path="/intros/:id" element={<Intro />} />
+                  <Route path="/intros/:id" element={<Intros />} />
+                  <Route path="/intro/:id" element={<Intro />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </header>

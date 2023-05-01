@@ -1,62 +1,104 @@
-import { Link, useLocation } from "react-router-dom";
-import useInviteDetails from "../hooks/useInviteDetails";
-import TimeAgo from "timeago-react";
+import { useContext, useState } from "react";
+import { UserAuthContext } from "../store";
+import { useLocation, Navigate } from "react-router-dom";
+import SignInTwitter from "../components/button/signInTwitter";
+import { signInWithPopup } from "firebase/auth";
+import { auth, Provider } from "../utils/firebase";
 import CustomSpinner from "../components/spinner";
+import useInviteDetails from "../hooks/useInviteDetails";
+import withPostCardWrapper from "../components/hoc";
+import Coupon from "../components/coupon";
+import useIsCouponSent from "../hooks/useIsCouponSent";
 
-const Intro: React.FC = () => {
+function Intro() {
+  const { userDetails, setUserDetails } = useContext(UserAuthContext);
   const location = useLocation();
   const { inviteDetails, isLoading } = useInviteDetails(location);
-  console.log(inviteDetails.createdAt);
-  if (isLoading) {
-    return <CustomSpinner />;
-  } else {
-    return (
-      <nav className="py-4 relative">
-        <Link to="/main" className="text-[14px] hover:text-amber-500">
-          <i className="fa-solid fa-address-card" /> Create
-        </Link>
-        <div className="timeline mt-2">
-          <li className="block px-4 py-2 border-1 mb-5 rounded-lg bg-gray-300 relative">
-            <div className="flex text-[14px]">
-              <span>This intro was created</span>
-              <TimeAgo className="pl-2" datetime={inviteDetails.createdAt} />
-            </div>
-            <p className="text-right text-[12px] mt-2 text-slate-500">
-              <i className="fa-regular fa-clock"></i>{" "}
-              <TimeAgo datetime={inviteDetails.createdAt} />
-            </p>
-          </li>
-          <div className="timeline-divider"></div>
-          <li className="block px-4 py-2 border-1 mb-5 rounded-lg bg-gray-300 relative">
-            <div className="flex text-[14px]">
-              intro link was viewed on 29 April by @harshaunknownu
-            </div>
-            <p className="text-right text-[12px] mt-2 text-slate-500">
-              <i className="fa-regular fa-clock"></i> wednesday 12.55pm
-            </p>
-          </li>
-          <div className="timeline-divider"></div>
-          <li className="block px-4 py-2 border-1 mb-5 rounded-lg bg-gray-300 relative">
-            <div className="flex text-[14px]">
-              Harsha has said thanks to Girish
-            </div>
-            <p className="text-right text-[12px] mt-2 text-slate-500">
-              <i className="fa-regular fa-clock"></i> friday 8am
-            </p>
-          </li>
-          <div className="timeline-divider"></div>
-          <li className="block px-4 py-2 border-1 rounded-lg bg-gray-300 relative">
-            <div className="flex text-[14px]">
-              Nilesh has said thanks to Girish
-            </div>
-            <p className="text-right text-[12px] mt-2 text-slate-500">
-              <i className="fa-regular fa-clock"></i> yesterday 1.00pm
-            </p>
-          </li>
-        </div>
-      </nav>
-    );
-  }
-};
+  const [isCouponsVisible, setCouponsVisible] = useState(false);
+  const {isCouponSent} = useIsCouponSent(location, userDetails.handleName);
 
-export default Intro;
+  const handleClick = () => {
+    signInWithPopup(auth, Provider).then((data) => {
+      const user = {
+        name: data.user.displayName,
+        email: data.user.email,
+        picture: data.user.photoURL,
+        handleName: data.user["reloadUserInfo"]["screenName"],
+        token: data.user["accessToken"],
+        uid: data.user.uid,
+      };
+      setUserDetails(user);
+      localStorage.setItem("userDetails", JSON.stringify(user));
+    });
+  };
+
+  console.log(isLoading);
+  if (Object.keys(userDetails).length > 0) {
+    if (!isLoading) {
+      if (
+        userDetails.handleName === inviteDetails.fromHandle ||
+        userDetails.handleName === inviteDetails.toHandle
+      ) {
+        return (
+          <>
+          {!isCouponsVisible ? <div>
+            <div className="flex items-center justify-between">
+              <a
+                href={"https://twitter.com/" + inviteDetails.toHandle}
+                rel="noreferrer"
+                target="_blank"
+                className="text-[14px] underline"
+              >
+                {inviteDetails.toHandleImage.length > 0 ? (
+                  <img
+                    className="rounded-full"
+                    src={inviteDetails.toHandleImage}
+                    alt="from"
+                  />
+                ) : (
+                  <span>@{inviteDetails.toHandle}</span>
+                )}
+              </a>
+              -<div className="text-[1rem]">{inviteDetails.purpose}</div> -
+              <a
+                href={"https://twitter.com/" + inviteDetails.fromHandle}
+                rel="noreferrer"
+                target="_blank"
+                className="text-[14px] underline"
+              >
+                {inviteDetails.fromHandleImage.length > 0 ? (
+                  <img
+                    className="rounded-full"
+                    src={inviteDetails.fromHandleImage}
+                    alt="to"
+                  />
+                ) : (
+                  <span>@{inviteDetails.fromHandle}</span>
+                )}
+              </a>
+            </div>
+
+            <div className="text-[18px] p-5">{inviteDetails.desc}</div>
+
+            {!isCouponSent && <button
+              className="bg-orange-400 mt-5 w-full text-[18px] text-white py-2"
+              onClick={() => setCouponsVisible(true)}
+            >
+              Say Thanks to {inviteDetails.introducer}
+            </button>}
+          </div>
+          : <Coupon setCouponsVisible={() => setCouponsVisible(false)} {...inviteDetails} {...userDetails} /> }
+          </>
+        );
+      } else {
+        return <Navigate to="/404" />;
+      }
+    } else {
+      return <CustomSpinner />;
+    }
+  } else {
+    return <SignInTwitter onClick={handleClick} />;
+  }
+}
+
+export default withPostCardWrapper(Intro);

@@ -18,11 +18,10 @@ function useInviteDetails(location) {
     createdAt: "",
     updatedAt: ""
   });
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(true);
 
   const getDocuments = async () => {
     try {
-      setLoading(true);
       const docRef = doc(
         db,
         "incentive-cards",
