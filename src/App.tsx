@@ -2,7 +2,7 @@ import "./App.css";
 import Main from "./pages/main";
 import { UserAuthContext } from "./store";
 import useUser from "./hooks/useUser";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import NotFound from "./pages/notFound";
 import Done from "./pages/done";
 import Thanks from "./pages/thanks";
@@ -13,14 +13,15 @@ import Intro from "./pages/intro";
 
 function App() {
   const { userDetails, setUserDetails } = useUser();
+  const location = window.location.pathname;
   return (
     <div className="App">
       <BrowserRouter>
         <UserAuthContext.Provider value={{ userDetails, setUserDetails }}>
           <div className="container">
-            <div className="sidebar">
+            {(location!=="/" || location.includes("thanks")) ? <div className="sidebar">
               <Sidebar />
-            </div>
+            </div> : null}
             <div className="main-content">
               <header className="App-header">
                 <Routes>
