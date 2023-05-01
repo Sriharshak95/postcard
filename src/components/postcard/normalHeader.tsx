@@ -18,18 +18,12 @@ const NormalHeader: React.FC<{
       return null;
     }
   };
+
   return (
     <React.Fragment>
-      <Link to="/main" className="app-title">
-        Incentive
-      </Link>
       <div className="relative">
         <img
-          src={
-            Object.keys(userDetails).length > 0
-              ? userDetails.picture
-              : PostImage
-          }
+          src={PostImage}
           onClick={handleLogout}
           alt="Stamp"
           className={
@@ -42,16 +36,31 @@ const NormalHeader: React.FC<{
           <div
             className="tooltip"
             onClick={() => {
-              auth.signOut().then(() =>{
+              auth.signOut().then(() => {
                 localStorage.clear();
                 window.location.reload();
-              })
+              });
             }}
           >
             <span>Logout</span>
           </div>
         )}
       </div>
+      {Object.keys(userDetails).length > 0 ? <div className="relative">
+        <img
+          src={
+            Object.keys(userDetails).length > 0
+              ? userDetails.picture
+              : PostImage
+          }
+          alt="Stamp"
+          className={
+            Object.keys(userDetails).length > 0
+              ? "h-16 w-16 shadow rounded-full"
+              : "h-16 w-16 shadow rounded-full"
+          }
+        />
+      </div> : null}
     </React.Fragment>
   );
 };

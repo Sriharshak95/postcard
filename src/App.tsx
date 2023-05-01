@@ -14,12 +14,13 @@ import Intro from "./pages/intro";
 function App() {
   const { userDetails, setUserDetails } = useUser();
   const location = window.location.pathname;
+  
   return (
     <div className="App">
       <BrowserRouter>
         <UserAuthContext.Provider value={{ userDetails, setUserDetails }}>
           <div className="container">
-            {(location!=="/" || location.includes("thanks")) ? <div className="sidebar">
+            {Object.keys(userDetails).length > 0 && (location!=="/" || location.includes("thanks")) ? <div className="sidebar">
               <Sidebar />
             </div> : null}
             <div className="main-content">

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { UserAuthContext } from "../store";
 import { useLocation, Navigate } from "react-router-dom";
 import SignInTwitter from "../components/button/signInTwitter";
@@ -7,15 +7,11 @@ import { auth, Provider } from "../utils/firebase";
 import CustomSpinner from "../components/spinner";
 import useInviteDetails from "../hooks/useInviteDetails";
 import withPostCardWrapper from "../components/hoc";
-import Coupon from "../components/coupon";
-import useIsCouponSent from "../hooks/useIsCouponSent";
 
 function Intro() {
   const { userDetails, setUserDetails } = useContext(UserAuthContext);
   const location = useLocation();
   const { inviteDetails, isLoading } = useInviteDetails(location);
-  const [isCouponsVisible, setCouponsVisible] = useState(false);
-  const {isCouponSent} = useIsCouponSent(location, userDetails.handleName);
 
   const handleClick = () => {
     signInWithPopup(auth, Provider).then((data) => {
@@ -32,7 +28,6 @@ function Intro() {
     });
   };
 
-  console.log(isLoading);
   if (Object.keys(userDetails).length > 0) {
     if (!isLoading) {
       if (
@@ -41,7 +36,6 @@ function Intro() {
       ) {
         return (
           <>
-          {!isCouponsVisible ? <div>
             <div className="flex items-center justify-between">
               <a
                 href={"https://twitter.com/" + inviteDetails.toHandle}
@@ -79,15 +73,6 @@ function Intro() {
             </div>
 
             <div className="text-[18px] p-5">{inviteDetails.desc}</div>
-
-            {!isCouponSent && <button
-              className="bg-orange-400 mt-5 w-full text-[18px] text-white py-2"
-              onClick={() => setCouponsVisible(true)}
-            >
-              Say Thanks to {inviteDetails.introducer}
-            </button>}
-          </div>
-          : <Coupon setCouponsVisible={() => setCouponsVisible(false)} {...inviteDetails} {...userDetails} /> }
           </>
         );
       } else {
