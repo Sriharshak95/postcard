@@ -72,7 +72,7 @@ function Intro() {
               </a>
             </div>
 
-            <div className="text-[18px] p-5">{inviteDetails.desc}</div>
+            <div className="text-[16px] mt-5 p-2 bg-[#ffffffa1] rounded">{inviteDetails.desc}</div>
           </>
         );
       } else {
