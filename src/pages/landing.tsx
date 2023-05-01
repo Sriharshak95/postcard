@@ -11,7 +11,6 @@ function Landing() {
   const [email, setEmail] = useState('');
   const [isLoading, setLoading] = useState(false);
   const [isSubmitted, setSubmitted] = useState(false);
-  const upiId = '8971138094@ybl'
   const sendEmail = async () => {
     try {
         if(email.length > 0) {

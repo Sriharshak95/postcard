@@ -20,7 +20,7 @@ function Thanks() {
   const location = useLocation();
   const { inviteDetails, isLoading } = useInviteDetails(location);
   const [isCouponsVisible, setCouponsVisible] = useState(false);
-  const {isCouponSent} = useIsCouponSent(location, userDetails.handleName);
+  const { isCouponSent } = useIsCouponSent(location, userDetails.handleName);
 
   const handleClick = () => {
     signInWithPopup(auth, Provider).then((data) => {
@@ -45,53 +45,62 @@ function Thanks() {
       ) {
         return (
           <>
-          {!isCouponsVisible ? <div>
-            <div className="flex items-center justify-between">
-              <a
-                href={"https://twitter.com/" + inviteDetails.toHandle}
-                rel="noreferrer"
-                target="_blank"
-                className="text-[14px] underline"
-              >
-                {inviteDetails.toHandleImage.length > 0 ? (
-                  <img
-                    className="rounded-full"
-                    src={inviteDetails.toHandleImage}
-                    alt="from"
-                  />
-                ) : (
-                  <span>@{inviteDetails.toHandle}</span>
-                )}
-              </a>
-              -<div className="text-[1rem]">{inviteDetails.purpose}</div> -
-              <a
-                href={"https://twitter.com/" + inviteDetails.fromHandle}
-                rel="noreferrer"
-                target="_blank"
-                className="text-[14px] underline"
-              >
-                {inviteDetails.fromHandleImage.length > 0 ? (
-                  <img
-                    className="rounded-full"
-                    src={inviteDetails.fromHandleImage}
-                    alt="to"
-                  />
-                ) : (
-                  <span>@{inviteDetails.fromHandle}</span>
-                )}
-              </a>
-            </div>
+            {!isCouponsVisible ? (
+              <div>
+                <div className="flex items-center justify-between">
+                  <a
+                    href={"https://twitter.com/" + inviteDetails.toHandle}
+                    rel="noreferrer"
+                    target="_blank"
+                    className="text-[14px] underline"
+                  >
+                    {inviteDetails.toHandleImage.length > 0 ? (
+                      <img
+                        className="rounded-full"
+                        src={inviteDetails.toHandleImage}
+                        alt="from"
+                      />
+                    ) : (
+                      <span>@{inviteDetails.toHandle}</span>
+                    )}
+                  </a>
+                  -<div className="text-[1rem]">{inviteDetails.purpose}</div> -
+                  <a
+                    href={"https://twitter.com/" + inviteDetails.fromHandle}
+                    rel="noreferrer"
+                    target="_blank"
+                    className="text-[14px] underline"
+                  >
+                    {inviteDetails.fromHandleImage.length > 0 ? (
+                      <img
+                        className="rounded-full"
+                        src={inviteDetails.fromHandleImage}
+                        alt="to"
+                      />
+                    ) : (
+                      <span>@{inviteDetails.fromHandle}</span>
+                    )}
+                  </a>
+                </div>
 
-            <div className="text-[18px] p-5">{inviteDetails.desc}</div>
+                <div className="text-[18px] p-5">{inviteDetails.desc}</div>
 
-            {!isCouponSent && <button
-              className="bg-orange-400 mt-5 w-full text-[18px] text-white py-2"
-              onClick={() => setCouponsVisible(true)}
-            >
-              Say Thanks to {inviteDetails.introducer}
-            </button>}
-          </div>
-          : <Coupon setCouponsVisible={() => setCouponsVisible(false)} {...inviteDetails} {...userDetails} /> }
+                {!isCouponSent && (
+                  <button
+                    className="bg-orange-400 mt-5 w-full text-[18px] text-white py-2"
+                    onClick={() => setCouponsVisible(true)}
+                  >
+                    Say Thanks to {inviteDetails.introducer}
+                  </button>
+                )}
+              </div>
+            ) : (
+              <Coupon
+                setCouponsVisible={() => setCouponsVisible(false)}
+                {...inviteDetails}
+                {...userDetails}
+              />
+            )}
           </>
         );
       } else {

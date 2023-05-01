@@ -22,7 +22,7 @@ const Coupon = ({ setCouponsVisible, introducerId, handleName }) => {
       setCouponsVisible(false);
     }
   }
-
+  
   return (
     <div className="inset-0">
       <div className="bg-white p-4 rounded-lg shadow-lg">
