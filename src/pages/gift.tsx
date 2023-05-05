@@ -10,7 +10,6 @@ import CustomSpinner from "../components/spinner";
 const GreetingCard = () => {
   const location = useLocation();
   const { giftData, isGiftLoaded } = useGift(location);
-  console.log(giftData);
   if (isGiftLoaded) {
     return <CustomSpinner />;
   } else {

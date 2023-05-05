@@ -67,8 +67,6 @@ const PostForm: React.FC = (props) => {
     }
   };
 
-  console.log(userDetails);
-
   return (
     <React.Fragment>
       {!isSpinner ? (
