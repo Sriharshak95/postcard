@@ -35,8 +35,6 @@ const Sidebar: React.FC = () => {
     }
   };
 
-  console.log(couponList);
-
   useEffect(() => {
     getUsers();
   }, [userDetails]);

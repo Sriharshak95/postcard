@@ -102,6 +102,7 @@ const PostCardLine: React.FC<{
               }}
               value={toTextBox.value}
             />
+          </div>
             {simpleValidator.current.message(
               "toHandle",
               toTextBox.value,
@@ -112,7 +113,6 @@ const PostCardLine: React.FC<{
                 },
               }
             )}
-          </div>
         </div>
         <div className="w-1/3">
           <div className="flex justify-center">
@@ -154,6 +154,7 @@ const PostCardLine: React.FC<{
               }}
               value={fromTextBox.value}
             />
+          </div>
             {simpleValidator.current.message(
               "fromHandle",
               fromTextBox.value,
@@ -164,7 +165,6 @@ const PostCardLine: React.FC<{
                 },
               }
             )}
-          </div>
         </div>
       </div>
 

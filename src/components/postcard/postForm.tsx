@@ -23,7 +23,7 @@ const PostForm: React.FC = (props) => {
   const sendTweet = async (simpleValidator, forceUpdate) => {
     try {
       if (simpleValidator.current.allValid()) {
-        if(userDetails.handleName!==cardDetails.toHandle && userDetails.handleName!==cardDetails.fromHandle) {
+        if(userDetails.handleName !== cardDetails.toHandle && userDetails.handleName !== cardDetails.fromHandle && cardDetails.fromHandle !== cardDetails.toHandle) {
           setSpinner(true);
           const savedDetails = await addDoc(collection(db, "incentive-cards"), {
             toHandle: cardDetails.toHandle,

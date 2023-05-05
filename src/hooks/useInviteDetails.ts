@@ -72,7 +72,7 @@ function useInviteDetails(location) {
 
   useEffect(() => {
     getDocuments();
-  }, []);
+  }, [location]);
 
   return { inviteDetails, isLoading };
 }

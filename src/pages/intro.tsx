@@ -32,7 +32,8 @@ function Intro() {
     if (!isLoading) {
       if (
         userDetails.handleName === inviteDetails.fromHandle ||
-        userDetails.handleName === inviteDetails.toHandle
+        userDetails.handleName === inviteDetails.toHandle ||
+        userDetails.handleName === inviteDetails.introducer
       ) {
         return (
           <>

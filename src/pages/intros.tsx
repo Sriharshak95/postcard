@@ -2,20 +2,45 @@ import { Link, useLocation } from "react-router-dom";
 import useInviteDetails from "../hooks/useInviteDetails";
 import TimeAgo from "timeago-react";
 import CustomSpinner from "../components/spinner";
+import { useNavigate, Navigate } from "react-router-dom";
+import useIsCouponSent from "../hooks/useIsCouponSent";
+import { useContext } from "react";
+import { UserAuthContext } from "../store";
+import { auth } from "../utils/firebase";
 
 const Intro: React.FC = () => {
   const location = useLocation();
+  const { userDetails } = useContext(UserAuthContext);
   const { inviteDetails, isLoading } = useInviteDetails(location);
-  if (isLoading) {
-    return <CustomSpinner />;
-  } else {
+  const { couponList } = useIsCouponSent(location, null);
+  const navigate = useNavigate();
+
+  if(Object.keys(userDetails).length > 0) {
+
     return (
       <nav className="py-4 relative">
-        <Link to="/main" className="text-[14px] hover:text-amber-500">
-          <i className="fa-solid fa-address-card" /> Create
-        </Link>
+        <div className="flex justify-between">
+          <Link to="/main" className="text-[14px] hover:text-amber-500">
+            <i className="fa-solid fa-address-card" /> Create
+          </Link>
+          <button className="text-[14px] hover:text-amber-500" onClick={() => {
+              auth.signOut().then(() => {
+                localStorage.clear();
+                navigate('/');
+              });
+          }}>
+            <i className="fa-solid fa-right-from-bracket" />
+          </button>
+        </div>
+  
         <div className="timeline mt-2">
-          <Link to={"/intro/"+location.pathname.substring(location.pathname.lastIndexOf("/") + 1)} className="block px-4 py-2 border-1 mb-5 rounded-lg bg-gray-300 relative">
+          <Link
+            to={
+              "/intro/" +
+              location.pathname.substring(location.pathname.lastIndexOf("/") + 1)
+            }
+            className="block px-4 py-2 border-1 mb-5 rounded-lg bg-gray-300 relative"
+          >
             <div className="flex text-[14px]">
               <span>This intro was created</span>
               <TimeAgo className="pl-2" datetime={inviteDetails.createdAt} />
@@ -55,6 +80,8 @@ const Intro: React.FC = () => {
         </div>
       </nav>
     );
+  } else {
+    return <Navigate to="/" />
   }
 };
 

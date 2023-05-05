@@ -26,7 +26,7 @@ const PostCard: React.FC<{ children: JSX.Element | JSX.Element[] }> = (
   useEffect(() => {
     setCardDetails({
       ...cardDetails,
-      introducer: userDetails.name,
+      introducer: userDetails.handleName,
       introducerImage: userDetails.picture,
     });
   }, [userDetails]);
@@ -39,7 +39,6 @@ const PostCard: React.FC<{ children: JSX.Element | JSX.Element[] }> = (
           <div className="flex flex-1 w-full justify-center">
             <div className="px-5 py-4 text-center">{props.children}</div>
           </div>
-          {inviteDetails.fromHandle!=="" ? !isLoading ? <IntroCreatedTime inviteDetails={inviteDetails} /> : <CustomSpinner /> : null}
         </div>
       </PostCardDetailsContext.Provider>
     </React.Fragment>

@@ -15,7 +15,7 @@ function useGiftList(handleName) {
       const newCouponList = [];
       const docSnap = await getDocs(q);
       docSnap.forEach((gifts) => {
-        newCouponList.push(gifts.data());
+        newCouponList.push({...gifts.data(), id: gifts.id});
       })
       setGiftListLoaded(false);
       setCouponList([...couponList, ...newCouponList]);

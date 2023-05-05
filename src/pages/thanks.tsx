@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserAuthContext } from "../store";
 import { useLocation, Navigate } from "react-router-dom";
 import SignInTwitter from "../components/button/signInTwitter";
@@ -20,7 +20,7 @@ function Thanks() {
   const location = useLocation();
   const { inviteDetails, isLoading } = useInviteDetails(location);
   const [isCouponsVisible, setCouponsVisible] = useState(false);
-  const { isCouponSent } = useIsCouponSent(location, userDetails.handleName);
+  const { isCouponSent } = useIsCouponSent(location, userDetails.handleName, isCouponsVisible);
 
   const handleClick = () => {
     signInWithPopup(auth, Provider).then((data) => {
@@ -41,7 +41,8 @@ function Thanks() {
     if (!isLoading) {
       if (
         userDetails.handleName === inviteDetails.fromHandle ||
-        userDetails.handleName === inviteDetails.toHandle
+        userDetails.handleName === inviteDetails.toHandle ||
+        userDetails.handleName === inviteDetails.introducer
       ) {
         return (
           <>
@@ -87,7 +88,7 @@ function Thanks() {
 
                 {!isCouponSent && (
                   <button
-                    className="bg-orange-400 mt-5 w-full text-[18px] text-white py-2"
+                    className="bg-orange-400 mt-5 rounded w-full font-semibold text-[14px] text-white py-2"
                     onClick={() => setCouponsVisible(true)}
                   >
                     Say Thanks to {inviteDetails.introducer}

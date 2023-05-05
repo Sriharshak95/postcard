@@ -10,6 +10,7 @@ import Landing from "./pages/landing";
 import Sidebar from "./components/sidebar";
 import Intros from "./pages/intros";
 import Intro from "./pages/intro";
+import GreetingCard from "./pages/gift";
 
 function App() {
   const { userDetails, setUserDetails } = useUser();
@@ -28,6 +29,7 @@ function App() {
                 <Routes>
                   <Route path="/" element={<Landing />} />
                   <Route path="/main" element={<Main />} />
+                  <Route path="/gifts/:id" element={<GreetingCard />} />
                   <Route path="/done" element={<Done />} />
                   <Route path="/thanks/:id" element={<Thanks />} />
                   <Route path="/intros/:id" element={<Intros />} />
