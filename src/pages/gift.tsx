@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ScratchCard, { CUSTOM_BRUSH_PRESET } from "react-scratchcard-v2";
 import { useLocation } from "react-router-dom";
 import Scratch from "../assets/scratch.png";
@@ -10,6 +10,8 @@ import CustomSpinner from "../components/spinner";
 const GreetingCard = () => {
   const location = useLocation();
   const { giftData, isGiftLoaded } = useGift(location);
+  console.log(giftData);
+  const [isComplete, setComplete] = useState(false);
   if (isGiftLoaded) {
     return <CustomSpinner />;
   } else {
@@ -31,18 +33,54 @@ const GreetingCard = () => {
             Here is a message from @{giftData.handleName}
           </p>
           <div className="flex justify-center mt-2 items-center">
-            <ScratchCard
-              width={220}
-              height={50}
-              image={Scratch}
-              finishPercent={90}
-              customBrush={CUSTOM_BRUSH_PRESET}
-              onComplete={() => console.log("complete")}
-            >
-              <p className="text-gray-600 text-[14px] font-bold leading-relaxed">
-                {giftData.message}
-              </p>
-            </ScratchCard>
+            {!isComplete ? (
+              <ScratchCard
+                width={240}
+                height={100}
+                image={Scratch}
+                finishPercent={90}
+                customBrush={CUSTOM_BRUSH_PRESET}
+                onComplete={() => setComplete(true)}
+              >
+                {giftData.type === "calendly" ? (
+                  <div className="text-gray-600 text-[14px] font-bold leading-relaxed">
+                    <a
+                      className="text-blue-600"
+                      target="_blank"
+                      rel="noreferrer"
+                      href={giftData.message}
+                    >
+                      Let's Chat{" "}
+                      <i className="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                  </div>
+                ) : (
+                  <div className="text-gray-600 text-[14px] font-bold leading-relaxed">
+                    Here is a coupon : {giftData.message}
+                  </div>
+                )}
+              </ScratchCard>
+            ) : (
+              <>
+                {giftData.type === "calendly" ? (
+                  <div className="text-gray-600 text-[14px] font-bold leading-relaxed">
+                    <a
+                      className="text-blue-600"
+                      target="_blank"
+                      rel="noreferrer"
+                      href={giftData.message}
+                    >
+                      Let's Chat{" "}
+                      <i className="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                  </div>
+                ) : (
+                  <div className="text-gray-600 text-[14px] font-bold leading-relaxed">
+                    Here is a coupon : {giftData.message}
+                  </div>
+                )}
+              </>
+            )}
           </div>
         </div>
       </div>

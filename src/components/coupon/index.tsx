@@ -11,6 +11,7 @@ const Coupon = ({ setCouponsVisible, introducerId, handleName, introducer }) => 
   const thankId = location.pathname.substring(
     location.pathname.lastIndexOf("/") + 1
   );
+  
   const sendCoupon = async () => {
     //needed introducerId, message, from whom handle?
     const objectGift = {

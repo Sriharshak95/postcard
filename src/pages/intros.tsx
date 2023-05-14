@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import useInviteDetails from "../hooks/useInviteDetails";
 import TimeAgo from "timeago-react";
 import CustomSpinner from "../components/spinner";
@@ -14,7 +14,6 @@ const Intro: React.FC = () => {
   const { inviteDetails, isLoading } = useInviteDetails(location);
   const { couponList } = useIsCouponSent(location, null);
   const navigate = useNavigate();
-
   if(Object.keys(userDetails).length > 0) {
 
     return (
@@ -32,7 +31,6 @@ const Intro: React.FC = () => {
             <i className="fa-solid fa-right-from-bracket" />
           </button>
         </div>
-  
         <div className="timeline mt-2">
           <Link
             to={
@@ -80,8 +78,6 @@ const Intro: React.FC = () => {
         </div>
       </nav>
     );
-  } else {
-    return <Navigate to="/" />
   }
 };
 

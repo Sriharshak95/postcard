@@ -11,6 +11,7 @@ function useGift(location) {
     message?:string;
     thankId?:string;
     updatedAt?:string;
+    type?:string;
   }>({});
 
   const getDocuments = async () => {
