@@ -9,7 +9,7 @@ const CardInput: React.FC<{
   name: string;
   maxLength: number;
 }> = (props) => {
-  const defaultClassName = `text-[14px] border-b-2 bg-transparent border-black focus:border-transparent focus:ring-0 focus:outline-none`;
+  const defaultClassName = `text-[14px] border-b placeholder:text-slate-950 bg-transparent border-slate-600 focus:border-transparent focus:ring-0 focus:outline-none`;
   return (
     <input
       name={props.name}

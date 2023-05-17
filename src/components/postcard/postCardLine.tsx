@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import CardInput from "../cardInput";
-import { PostCardDetailsContext } from "../../store";
+import { CardThemeContext, PostCardDetailsContext } from "../../store";
 import SimpleReactValidator from "simple-react-validator";
 
 const PostCardLine: React.FC<{
@@ -14,6 +14,7 @@ const PostCardLine: React.FC<{
     value: "",
     isFocus: false,
   });
+  const { themeColor, } = useContext(CardThemeContext);
   const [descText, setDescText] = useState("");
   const simpleValidator = useRef(
     new SimpleReactValidator({ autoForceUpdate: this })
@@ -41,23 +42,31 @@ const PostCardLine: React.FC<{
       label: '<i class="fab fa-linkedin"></i> LinkedIn',
     },
   ]);
-  const [selectedUrlOption, setSelectedUrlOption] = useState("");
 
-  const handleOptionSelect = (option) => {
-    if (toTextBox.isFocus) {
-      setToTextBox((prevState) => ({
-        ...prevState,
-        value: option,
-        isFocus: false,
-      }));
-    } else {
-      setFromTextBox((prevState) => ({
-        ...prevState,
-        value: option,
-        isFocus: false,
-      }));
+  const setButtonTheme = () => {
+    switch (themeColor) {
+      case "default":
+        return "mt-5 w-full rounded text-[14px] text-white bg-yellow-800 py-2";
+      case "plain":
+        return "mt-5 w-full rounded text-[14px] text-white bg-gray-800 py-2";
+      case "inland":
+        return "mt-5 w-full rounded text-[14px] text-white bg-cyan-700 py-2";
+      default:
+        return "mt-5 w-full rounded text-[14px] text-white bg-yellow-800 py-2";
     }
-    setSelectedUrlOption(option);
+  };
+
+  const setPlaceHolderTheme = () => {
+    switch (themeColor) {
+      case "default":
+        return "text-[15px] bg-indian-post";
+      case "plain":
+        return "text-[15px] bg-white";
+      case "inland":
+        return "text-[15px] bg-cyan-100";
+      default:
+        return "text-[15px] bg-indian-post";
+    }
   };
 
   useEffect(() => {
@@ -119,7 +128,7 @@ const PostCardLine: React.FC<{
           <select
             name="options"
             id="options"
-            className="text-[15px] bg-indian-post"
+            className={setPlaceHolderTheme()}
             onChange={(e) => {
               setCardDetails({ ...cardDetails, purpose: e.target.value });
               setSelectedOption(e.target.value);
@@ -189,7 +198,7 @@ const PostCardLine: React.FC<{
 
         <div className="mt-4">
           <button
-            className="bg-orange-400 mt-5 w-full text-[18px] text-white py-2"
+            className={setButtonTheme()}
             onClick={() =>
               props.sendTweetCallback(simpleValidator, forceUpdate)
             }

@@ -41,39 +41,64 @@
 
 import CustomSpinner from "../spinner";
 import { Link, useLocation } from "react-router-dom";
+import { DateTime } from "luxon";
 
-const IntroList = ({isLoading, listDetails}) => {
-    const location = useLocation();
-    const introId = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
-    const sideBarListItemStyle = "block px-4 py-2 border-b border-slate-200 hover:bg-gray-100 cursor-pointer";
-    return (
-        <ul className="space-y-2">
-          {!isLoading ? listDetails.map((intro) => {
-            return (
-              <Link
-                to={"/intros/"+intro.introId}
-                key={intro.introId}
-                className={intro.introId === introId ? sideBarListItemStyle + " shadow-inner bg-slate-100" : sideBarListItemStyle + " shadow-lg bg-white"}
-              >
-              <div
-                className="cursor-pointer"
-                onClick={() => {}}
-              >
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-gray-500">10:45 AM</span>
+const IntroList = ({ isLoading, listDetails }) => {
+  const location = useLocation();
+  const introId = location.pathname.substring(
+    location.pathname.lastIndexOf("/") + 1
+  );
+  const sideBarListItemStyle =
+    "block px-4 py-2 border-b border-slate-200 hover:bg-gray-100 cursor-pointer";
+
+  return (
+    <ul className="space-y-2">
+      {!isLoading ? (
+        listDetails.map((intro) => {
+          return (
+            <Link
+              to={"/intros/" + intro.introId}
+              key={intro.introId}
+              className={
+                intro.introId === introId
+                  ? sideBarListItemStyle + " shadow-[inset_0_0_10px_1px_rgba(203,198,198,1)] bg-slate-100"
+                  : sideBarListItemStyle + " shadow-lg bg-white"
+              }
+            >
+              <div className="flex items-center">
+                <div className="pr-2 text-[14px]">
+                  <img
+                    className="rounded-full h-10 w-10"
+                    src={intro.fromHandleImage}
+                    alt="to"
+                  />
                 </div>
-                <div className="">
-                  <div className="pr-2 text-[14px]">@{intro.fromHandle}</div> 
-                  <div className="pr-2 text-[14px]">{intro.purpose}</div>
-                  <div className="text-[14px]">@{intro.toHandle}</div>
+                <div className="pr-2 text-[14px] italic">{intro.purpose}</div>
+                <div className="text-[14px]">
+                  <img
+                    className="rounded-full h-10 w-10"
+                    src={intro.toHandleImage}
+                    alt="to"
+                  />
                 </div>
-                <p className="text-gray-500">{intro.desc}</p>
+
+                <p className="pl-2 text-gray-500 text-[14px] italic text-right">
+                  {intro.desc}
+                </p>
               </div>
-              </Link>
-            );
-          }) : <CustomSpinner />}
-        </ul>
-    )
-}
+              <div className="flex justify-end mb-2">
+                <span className="text-gray-500 text-[12px]">
+                  <i className="fa-regular fa-clock"></i> {DateTime.fromISO(intro.updatedAt).toFormat('FF')}
+                </span>
+              </div>
+            </Link>
+          );
+        })
+      ) : (
+        <CustomSpinner />
+      )}
+    </ul>
+  );
+};
 
 export default IntroList;

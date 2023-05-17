@@ -1,18 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
-import { PostCardDetailsContext, UserAuthContext } from "../../store";
+import {
+  CardThemeContext,
+  PostCardDetailsContext,
+  UserAuthContext,
+} from "../../store";
 import CardHeader from "./cardHeader";
-import TimeAgo from "timeago-react";
-import { Link, useLocation } from "react-router-dom";
-import useInviteDetails from "../../hooks/useInviteDetails";
-import IntroCreatedTime from "./introCreatedTime";
-import CustomSpinner from "../spinner";
 
 const PostCard: React.FC<{ children: JSX.Element | JSX.Element[] }> = (
   props
 ) => {
   const { userDetails } = useContext(UserAuthContext);
-  const location = useLocation();
-  const { inviteDetails, isLoading } = useInviteDetails(location);
+  const { themeColor, } = useContext(CardThemeContext);
   const [cardDetails, setCardDetails] = useState({
     toHandle: "",
     fromHandle: "",
@@ -31,10 +29,25 @@ const PostCard: React.FC<{ children: JSX.Element | JSX.Element[] }> = (
     });
   }, [userDetails]);
 
+  const setCardTheme = () => {
+    switch (themeColor) {
+      case "default":
+        return "min-w-[570px] max-w-[570px] bg-indian-post shadow-2xl rounded-lg border border-yellow-800 h-80 flex flex-col";
+      case "plain":
+        return "min-w-[570px] max-w-[570px] bg-white shadow-2xl rounded-lg border border-gray-800 h-80 flex flex-col";
+      case "inland":
+        return "min-w-[570px] max-w-[570px] bg-cyan-100 shadow-2xl rounded-lg border border-cyan-800 h-80 flex flex-col";
+      default:
+        return "min-w-[570px] max-w-[570px] bg-indian-post shadow-2xl rounded-lg border border-yellow-800 h-80 flex flex-col";
+    }
+  };
+
   return (
     <React.Fragment>
       <PostCardDetailsContext.Provider value={{ cardDetails, setCardDetails }}>
-        <div className="min-w-[570px] max-w-[570px] bg-indian-post rounded-lg border-2 border-yellow-800 h-96 flex flex-col">
+        <div
+          className={setCardTheme()}
+        >
           <CardHeader userDetails={userDetails} />
           <div className="flex flex-1 w-full justify-center">
             <div className="px-5 py-4 text-center">{props.children}</div>

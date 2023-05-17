@@ -5,5 +5,6 @@ const SocialMediaContext = React.createContext(null);
 const PostCardDetailsContext = React.createContext(null);
 const CouponVisibleContext = React.createContext(null);
 const SideBarContext = React.createContext(null);
+const CardThemeContext = React.createContext(null);
 
-export { UserAuthContext, SocialMediaContext, PostCardDetailsContext, CouponVisibleContext, SideBarContext };
+export { UserAuthContext, SocialMediaContext, PostCardDetailsContext, CouponVisibleContext, SideBarContext, CardThemeContext };
