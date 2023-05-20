@@ -85,7 +85,7 @@ const NormalHeader: React.FC<{
             leaveFrom="transform scale-100 opacity-100"
             leaveTo="transform scale-95 opacity-0"
           >
-            <Popover.Panel className="absolute z-10 bg-white shadow-md p-2 rounded-lg w-32">
+            <Popover.Panel className="absolute z-40 bg-white shadow-md p-2 rounded-lg w-32">
               <div className="text-[14px] mb-3 antialiased font-normal">
                 Set the tone
               </div>

@@ -2,6 +2,7 @@ const CardInput: React.FC<{
   onChange?: (e: any) => void;
   onClick?: (e: any) => void;
   onFocus?: (e: any) => void;
+  onKeyUp?: (e: any) => void;
   value: string;
   type: string;
   placeholder?: string;
@@ -22,7 +23,9 @@ const CardInput: React.FC<{
       type={props.type}
       value={props.value}
       onClick={props.onChange}
+      autoComplete="off"
       onChange={props.onChange}
+      onKeyUp={props.onChange}
       onFocus={props.onFocus}
       placeholder={props.placeholder ? props.placeholder : ""}
     />

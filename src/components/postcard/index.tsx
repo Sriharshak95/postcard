@@ -32,13 +32,13 @@ const PostCard: React.FC<{ children: JSX.Element | JSX.Element[] }> = (
   const setCardTheme = () => {
     switch (themeColor) {
       case "default":
-        return "min-w-[570px] max-w-[570px] bg-indian-post shadow-2xl rounded-lg border border-yellow-800 h-80 flex flex-col";
+        return "min-w-[570px] max-w-[570px] bg-indian-post shadow-2xl rounded-lg h-96 flex flex-col";
       case "plain":
-        return "min-w-[570px] max-w-[570px] bg-white shadow-2xl rounded-lg border border-gray-800 h-80 flex flex-col";
+        return "min-w-[570px] max-w-[570px] bg-white shadow-2xl rounded-lg h-96 flex flex-col";
       case "inland":
-        return "min-w-[570px] max-w-[570px] bg-cyan-100 shadow-2xl rounded-lg border border-cyan-800 h-80 flex flex-col";
+        return "min-w-[570px] max-w-[570px] bg-cyan-100 shadow-2xl rounded-lg h-96 flex flex-col";
       default:
-        return "min-w-[570px] max-w-[570px] bg-indian-post shadow-2xl rounded-lg border border-yellow-800 h-80 flex flex-col";
+        return "min-w-[570px] max-w-[570px] bg-indian-post shadow-2xl rounded-lg h-96 flex flex-col";
     }
   };
 

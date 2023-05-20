@@ -28,6 +28,8 @@ const PostForm: React.FC = (props) => {
           const savedDetails = await addDoc(collection(db, "incentive-cards"), {
             toHandle: cardDetails.toHandle,
             fromHandle: cardDetails.fromHandle,
+            fromHandleImage: cardDetails.fromHandleImage,
+            toHandleImage: cardDetails.toHandleImage,
             desc: cardDetails.desc,
             purpose: cardDetails.purpose,
             introducer: cardDetails.introducer,
