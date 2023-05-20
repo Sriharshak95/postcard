@@ -30,11 +30,14 @@ const PostCardLine: React.FC<{
     image: "",
   });
   const [options] = useState([
-    {purpose:"Should talk to", prepo: "about"},
-    {purpose:"Please meet", prepo: "to"},
-    {purpose:"Should interview",prepo: "on"},
+    { purpose: "Should talk to", prepo: "about" },
+    { purpose: "Please meet", prepo: "to" },
+    { purpose: "Should interview", prepo: "on" },
   ]);
-  const [selectedOption, setSelectedOption] = useState({purpose:"Should talk to", prepo: "about"});
+  const [selectedOption, setSelectedOption] = useState({
+    purpose: "Should talk to",
+    prepo: "about",
+  });
   const toRef = useRef(null);
   const fromRef = useRef(null);
   const [userHandleSearchList, setUserHandleSearchList] = useState([]);
@@ -192,9 +195,18 @@ const PostCardLine: React.FC<{
               id="options"
               className={setPlaceHolderTheme()}
               onChange={(e) => {
-                const filteredOption = options.find((option) => option.purpose === e.target.value);
-                setSelectedOption({purpose:e.target.value, prepo:filteredOption.prepo});
-                setCardDetails({ ...cardDetails, purpose: e.target.value, desc: filteredOption.prepo+" "+descText});
+                const filteredOption = options.find(
+                  (option) => option.purpose === e.target.value
+                );
+                setSelectedOption({
+                  purpose: e.target.value,
+                  prepo: filteredOption.prepo,
+                });
+                setCardDetails({
+                  ...cardDetails,
+                  purpose: e.target.value,
+                  desc: filteredOption.prepo + " " + descText,
+                });
               }}
               value={selectedOption.purpose}
             >
@@ -275,22 +287,24 @@ const PostCardLine: React.FC<{
               )}
             </div>
           </div>
-          {simpleValidator.current.message(
-            "fromHandle",
-            fromTextBox.value,
-            "required|regex:^[a-zA-Z0-9]*$",
-            {
-              messages: {
-                regex: "Can only contain letter,number & spaces",
-              },
-            }
-          )}
+        {simpleValidator.current.message(
+          "fromHandle",
+          fromTextBox.value,
+          "required|regex:^[a-zA-Z0-9]*$",
+          {
+            messages: {
+              regex: "Can only contain letter,number & spaces",
+            },
+          }
+        )}
         </div>
       </div>
 
       <div className="w-full">
         <div className="flex items-center">
-          <span className="text-[15px] mt-5 pr-2 italic font-bold">{selectedOption.prepo}</span>
+          <span className="text-[15px] mt-5 pr-2 italic font-bold">
+            {selectedOption.prepo}
+          </span>
           <CardInput
             type="text"
             name="description"
@@ -300,10 +314,15 @@ const PostCardLine: React.FC<{
             value={descText}
             onChange={(e) => {
               setDescText(e.target.value);
-              setCardDetails({ ...cardDetails, desc: selectedOption.prepo+" "+e.target.value });
+              setCardDetails({
+                ...cardDetails,
+                desc: selectedOption.prepo + " " + e.target.value,
+              });
             }}
           />
-          {simpleValidator.current.message(
+        </div>
+
+        {simpleValidator.current.message(
             "description",
             descText,
             "required",
@@ -313,7 +332,6 @@ const PostCardLine: React.FC<{
               },
             }
           )}
-        </div>
 
         <div className="mt-4">
           <button

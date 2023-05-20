@@ -54,6 +54,7 @@ const IntroList = ({ isLoading, listDetails }) => {
   return (
     <ul className="space-y-2">
       {!isLoading ? (
+        listDetails.length > 0 ?
         listDetails.map((intro) => {
           return (
             <Link
@@ -93,7 +94,15 @@ const IntroList = ({ isLoading, listDetails }) => {
               </div>
             </Link>
           );
-        })
+        }) : <div className="text-center">
+        <Link
+          to="/main"
+          className="bg-orange-400 mt-5 px-2 text-[14px] font-semibold rounded text-white py-2"
+          onClick={() => {}}
+        >
+          Create Intro
+        </Link>
+        </div>
       ) : (
         <CustomSpinner />
       )}

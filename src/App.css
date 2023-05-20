@@ -12,22 +12,25 @@
   position: relative;
 }
 
-.timeline-divider {
+.timeline-item {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.timeline-marker {
   position: absolute;
-  left: 0;
-  top: 10px; /* adjust to your desired distance from top */
-  bottom: 10px; /* adjust to your desired distance from bottom */
-  width: 1px;
-  background-color: gray;
-  transform: translateX(-50%);
+  left: 1rem;
+  top: 0.75rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: #4f46e5; /* Replace with your desired marker color */
 }
 
-.timeline a:first-child {
-  margin-top: 0;
-}
-
-.timeline a:last-child {
-  margin-bottom: 0;
+.timeline-content {
+  margin-left: 2.5rem;
 }
 
 

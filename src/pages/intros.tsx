@@ -1,68 +1,68 @@
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import useInviteDetails from "../hooks/useInviteDetails";
 import TimeAgo from "timeago-react";
 import CustomSpinner from "../components/spinner";
-import { useNavigate, Navigate } from "react-router-dom";
-import useIsCouponSent from "../hooks/useIsCouponSent";
-import { useContext } from "react";
-import { UserAuthContext } from "../store";
-import { auth } from "../utils/firebase";
 import { DateTime } from "luxon";
 
 const Intro: React.FC = () => {
   const location = useLocation();
-  const { userDetails } = useContext(UserAuthContext);
   const { inviteDetails, isLoading } = useInviteDetails(location);
-  const { couponList } = useIsCouponSent(location, null);
   const introId = location.pathname.substring(
     location.pathname.lastIndexOf("/") + 1
   );
-  const sideBarListItemStyle =
-    "block px-4 py-2 border-b border-slate-200 hover:bg-gray-100 cursor-pointer";
-  const navigate = useNavigate();
 
-  if (Object.keys(userDetails).length > 0) {
-    if (!isLoading) {
-      return (
-        <Link
-          to={"/intro/" + introId}
-          key={introId}
-          className={sideBarListItemStyle + " shadow-lg bg-white"}
-        >
-          <div className="flex items-center">
-            <div className="pr-2 text-[14px]">
-              <img
-                className="rounded-full h-10 w-10"
-                src={inviteDetails.fromHandleImage}
-                alt="to"
-              />
-            </div>
-            <div className="pr-2 text-[14px] italic">
-              {inviteDetails.purpose}
-            </div>
-            <div className="text-[14px]">
-              <img
-                className="rounded-full h-10 w-10"
-                src={inviteDetails.toHandleImage}
-                alt="to"
-              />
-            </div>
-
-            <p className="pl-2 text-gray-500 text-[14px] italic text-right">
-              {inviteDetails.desc}
-            </p>
+  if (!isLoading) {
+    return (
+      <div className="timeline">
+        <div className="timeline-item">
+          <div className="timeline-marker"></div>
+          <div className="timeline-content">
+            <Link
+              to={"/intro/" + introId}
+              key={introId}
+              className="block relative pl-6 pr-8 py-4 bg-white border-l-4 border-indigo-500 hover:bg-indigo-100"
+            >
+              <div className="flex items-start">
+                <div className="flex-shrink-0">
+                  <img
+                    className="h-10 w-10 rounded-full"
+                    src={inviteDetails.fromHandleImage}
+                    alt="From User"
+                  />
+                </div>
+                <div className="ml-4">
+                  <p className="text-sm font-medium text-gray-900">
+                    {inviteDetails.purpose}
+                  </p>
+                  <p className="text-sm text-gray-500">
+                    <span className="font-bold">
+                      {inviteDetails.fromHandle}
+                    </span>{" "}
+                    invited{" "}
+                    <span className="font-bold">
+                      {inviteDetails.toHandle}
+                    </span>
+                  </p>
+                </div>
+              </div>
+              <div className="mt-2">
+                <p className="text-sm text-gray-500 italic">
+                  {inviteDetails.desc}
+                </p>
+              </div>
+              <div className="pl-3 py-1">
+                <span className="text-gray-600 text-xs">
+                  <i className="far fa-clock"></i>{" "}
+                  {DateTime.fromISO(inviteDetails.updatedAt).toFormat("ff")}
+                </span>
+              </div>
+            </Link>
           </div>
-          <div className="flex justify-end mb-2">
-            <span className="text-gray-500 text-[12px]">
-              <i className="fa-regular fa-clock"></i>{" "}
-              {DateTime.fromISO(inviteDetails.updatedAt).toFormat("ff")}
-            </span>
-          </div>
-        </Link>
-      );
-    } else {
-      return <CustomSpinner />;
-    }
+        </div>
+      </div>
+    );
+  } else {
+    return <CustomSpinner />;
   }
 };
 

@@ -28,24 +28,29 @@ const Sidebar: React.FC = () => {
         );
         const querySnapshot = await getDocs(q);
         const intros = [...listDetails];
-        querySnapshot.forEach((doc) => {
-          getUserNameProfilePic(
-            doc.data().toHandle,
-            doc.data().fromHandle
-          ).then((data) => {
-            if (data.status) {
-              setLoading(false);
-              intros.push({
-                ...doc.data(),
-                introId: doc.id,
-                toHandleImage: data.profiles[0].profile_image_url,
-                fromHandleImage: data.profiles[1].profile_image_url,
-              });
-              setListDetails(intros);
-            }
-          });
-        });
 
+        if(querySnapshot.size > 0) {
+          querySnapshot.forEach((doc) => {
+            getUserNameProfilePic(
+              doc.data().toHandle,
+              doc.data().fromHandle
+            ).then((data) => {
+              if (data.status) {
+                setLoading(false);
+                intros.push({
+                  ...doc.data(),
+                  introId: doc.id,
+                  toHandleImage: data.profiles[0].profile_image_url,
+                  fromHandleImage: data.profiles[1].profile_image_url,
+                });
+                setListDetails(intros);
+              }
+            });
+          });
+        } else {
+          setLoading(false);
+          setListDetails([]);
+        }
       }
     } catch (error) {
       setLoading(false);
