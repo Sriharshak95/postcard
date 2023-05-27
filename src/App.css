@@ -8,6 +8,15 @@
   color: #ff0000;
 }
 
+.connector-line {
+  position: absolute;
+  top: 0;
+  left: 10px; /* Adjust the positioning based on your design */
+  width: 2px; /* Adjust the width of the line */
+  height: 100%; /* Adjust the height of the line */
+  background-color: #e2e8f0; /* Adjust the color of the line */
+}
+
 .timeline {
   position: relative;
 }

@@ -37,29 +37,12 @@ function Intro() {
       ) {
         return (
           <>
-            <div className="flex items-center justify-between">
-              <a
-                href={"https://twitter.com/" + inviteDetails.toHandle}
-                rel="noreferrer"
-                target="_blank"
-                className="text-[14px] underline"
-              >
-                {inviteDetails.toHandleImage.length > 0 ? (
-                  <img
-                    className="rounded-full"
-                    src={inviteDetails.toHandleImage}
-                    alt="from"
-                  />
-                ) : (
-                  <span>@{inviteDetails.toHandle}</span>
-                )}
-              </a>
-              -<div className="text-[1rem]">{inviteDetails.purpose}</div> -
+            <div className="flex items-center">
               <a
                 href={"https://twitter.com/" + inviteDetails.fromHandle}
                 rel="noreferrer"
                 target="_blank"
-                className="text-[14px] underline"
+                className="text-[14px] flex-shrink-0"
               >
                 {inviteDetails.fromHandleImage.length > 0 ? (
                   <img
@@ -71,9 +54,30 @@ function Intro() {
                   <span>@{inviteDetails.fromHandle}</span>
                 )}
               </a>
+              <div className="text-[15px] flex-grow antialiased font-medium text-gray-600 bg-gradient-to-r from-gray-200 via-white to-gray-200 rounded-full p-2 text-center">
+                {inviteDetails.purpose}
+              </div>
+              <a
+                href={"https://twitter.com/" + inviteDetails.toHandle}
+                rel="noreferrer"
+                target="_blank"
+                className="text-[14px] flex-shrink-0"
+              >
+                {inviteDetails.toHandleImage.length > 0 ? (
+                  <img
+                    className="rounded-full"
+                    src={inviteDetails.toHandleImage}
+                    alt="from"
+                  />
+                ) : (
+                  <span>@{inviteDetails.toHandle}</span>
+                )}
+              </a>
             </div>
 
-            <div className="text-[16px] mt-5 p-2 bg-[#ffffffa1] rounded">{inviteDetails.desc}</div>
+            <div className="mt-3 text-center text-[15px] antialiased italic text-slate-500">
+              "{inviteDetails.desc}"
+            </div>
           </>
         );
       } else {

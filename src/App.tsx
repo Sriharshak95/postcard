@@ -32,7 +32,7 @@ function App() {
                 className={
                   Object.keys(userDetails).length > 0 &&
                   (location !== "/" || location.includes("thanks"))
-                    ? "grid lg:grid-cols-5 md:grid-cols-5 sm:grid-cols-1"
+                    ? "grid lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-1"
                     : "grid grid-cols-4"
                 }
               >
@@ -58,7 +58,6 @@ function App() {
                       <Route path="/done" element={<Done />} />
                       <Route path="/thanks/:id" element={<ThankPage />} />
                       <Route path="/intros/:id" element={<Intros />} />
-                      <Route path="/intro/:id" element={<Intro />} />
                       <Route path="*" element={<NotFound />} />
                     </Routes>
                   </header>

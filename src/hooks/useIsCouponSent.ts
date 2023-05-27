@@ -32,7 +32,7 @@ function useIsCouponSent(location, handleName, isThanksSet = false) {
         const newCouponList = [];
         const docSnap = await getDocs(q);
         docSnap.forEach((coupon) => {
-          newCouponList.push(coupon.data())
+          newCouponList.push({...coupon.data(), id: coupon.id})
         })
         setCouponSent(docSnap.docs.length > 0);
         setCouponList(newCouponList);
